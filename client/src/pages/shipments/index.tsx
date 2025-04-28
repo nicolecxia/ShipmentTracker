@@ -34,6 +34,11 @@ export default function ShipmentDashboard() {
             Add Shipment
           </Button>
         </Link>
+        <Link href="/shipments/dashboard" passHref>
+          <Button variant="contained" startIcon={<AddIcon />}>
+            Test API
+          </Button>
+        </Link>
       </Box>
       
       <ShipmentDataGrid

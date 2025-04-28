@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "J1qxT++kWwt8ulXYcscttL5GGryf/t1ymickmm0eXaE=",
+  "Source": "ShipmentTracker.Api",
+  "BasePath": "_content/ShipmentTracker.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
