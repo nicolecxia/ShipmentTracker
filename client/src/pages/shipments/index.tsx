@@ -7,9 +7,10 @@ import axios from 'axios';
 import { Shipment } from '../../types/shipment';
 import Link from 'next/link';
 import { GridFilterModel } from '@mui/x-data-grid';
+import { useEffect } from 'react';
+import { fetchShipments, fetchShipmentCount } from '../../services/shipmentService';
 
-
-const fetcher = (url: string) => axios.get(url).then(res => res.data);
+// const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function ShipmentDashboard() {
   const [paginationModel, setPaginationModel] = useState({
@@ -20,10 +21,30 @@ export default function ShipmentDashboard() {
     items: [],
   });
 
-  const { data, error, isLoading } = useSWR<{ shipments: Shipment[]; total: number }>(
-    `/api/shipments?page=${paginationModel.page + 1}&pageSize=${paginationModel.pageSize}`,
-    fetcher
-  );
+ 
+  const [shipments, setShipments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
+
+  const loadData = async () => {
+    setLoading(true);
+    const data = await fetchShipments({
+    page: paginationModel.page + 1, // Backend is 1-based
+    pageSize: paginationModel.pageSize,
+  });
+      
+    setShipments(data);
+
+    const count = await fetchShipmentCount();
+    setTotalCount(count);
+    console.log('Total Count:', count);
+    console.log('Shipments:', data);
+    setLoading(false);
+    };
+
+    useEffect(() => {
+      loadData();
+    }, []);
 
   return (
     <Box sx={{ p: 4 }}>
@@ -34,21 +55,16 @@ export default function ShipmentDashboard() {
             Add Shipment
           </Button>
         </Link>
-        <Link href="/shipments/dashboard" passHref>
-          <Button variant="contained" startIcon={<AddIcon />}>
-            Test API
-          </Button>
-        </Link>
       </Box>
       
       <ShipmentDataGrid
-        shipments={data?.shipments || []}
-        loading={isLoading}
+        shipments={shipments?.shipments || []}
+        loading={loading}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         filterModel={filterModel}
         onFilterModelChange={setFilterModel}
-        rowCount={data?.total || 0}
+        rowCount={shipments?.total || 0}
       />
     </Box>
   );

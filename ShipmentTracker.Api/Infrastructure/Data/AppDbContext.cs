@@ -14,7 +14,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Seed some initial data
-        modelBuilder.Entity<Shipment>().HasData(
+        _ = modelBuilder.Entity<Shipment>().HasData(
             new Shipment
             {
                 Id = 1,
@@ -23,8 +23,8 @@ public class AppDbContext : DbContext
                 Destination = "Los Angeles",
                 Carrier = "UPS",
                 Status = "In Transit",
-                ShipDate = DateTime.UtcNow.AddDays(-2),
-                ETA = DateTime.UtcNow.AddDays(3),
+                ShipDate = DateTime.UtcNow.AddDays(-2).ToString("O"),
+                ETA = DateTime.UtcNow.AddDays(3).ToString("O"),
             },
             new Shipment
             {
@@ -34,8 +34,53 @@ public class AppDbContext : DbContext
                 Destination = "Miami",
                 Carrier = "FedEx",
                 Status = "Delivered",
-                ShipDate = DateTime.UtcNow.AddDays(-5),
-                ETA = DateTime.UtcNow.AddDays(-1),
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+            }
+            ,
+            new Shipment
+            {
+                Id = 3,
+                TrackingNumber = "TN87654391",
+                Origin = "Toronto",
+                Destination = "Miami",
+                Carrier = "FedEx",
+                Status = "Delivered",
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+            },
+            new Shipment
+            {
+                Id = 4,
+                TrackingNumber = "TN37654321",
+                Origin = "Tokyo",
+                Destination = "Miami",
+                Carrier = "FedEx",
+                Status = "Delivered",
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+            },
+            new Shipment
+            {
+                Id = 5,
+                TrackingNumber = "TN87654321",
+                Origin = "Shenzhen",
+                Destination = "Miami",
+                Carrier = "FedEx",
+                Status = "Delivered",
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+            },
+            new Shipment
+            {
+                Id = 6,
+                TrackingNumber = "TN87654321",
+                Origin = "Hubei",
+                Destination = "Miami",
+                Carrier = "FedEx",
+                Status = "Delivered",
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
             }
         );
     }

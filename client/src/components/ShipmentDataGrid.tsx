@@ -7,8 +7,53 @@ const columns: GridColDef<Shipment>[] = [
   { field: 'destination', headerName: 'Destination', width: 150 },
   { field: 'carrier', headerName: 'Carrier', width: 150 },
   { field: 'status', headerName: 'Status', width: 150 },
-  { field: 'shipDate', headerName: 'Ship Date', width: 150, type: 'date' },
-  { field: 'eta', headerName: 'ETA', width: 150, type: 'date' },
+  // { field: 'shipDate', headerName: 'Ship Date', width: 150, type: 'date' },
+  // { field: 'eta', headerName: 'ETA', width: 150, type: 'date' },
+  // { 
+  //   field: 'shipDate', 
+  //   headerName: 'Ship Date', 
+  //   width: 150, 
+  //   type: 'date',
+  //   valueGetter: (params) => {
+  //     const dateString = params.row?.shipDate;
+  //     if (!dateString || typeof dateString !== 'string') return null;
+      
+  //     const date = new Date(dateString);
+  //     return isNaN(date.getTime()) ? null : date;
+  //   },
+  //   valueFormatter: (params) => {
+  //     // Format the date for display
+  //     return params.value?.toLocaleDateString() || 'Invalid date';
+  //   }
+  // },
+  // { 
+  //   field: 'eta', 
+  //   headerName: 'ETA', 
+  //   width: 150, 
+  //   type: 'date',
+  //   valueGetter: (params) => {
+  //     const date = new Date(params.row.eta);
+  //     return isNaN(date.getTime()) ? null : date;
+  //   },
+  //   valueFormatter: (params) => {
+  //     const date = params.value;
+  //     if (!date) return 'Invalid date';
+      
+  //     const today = new Date();
+  //     today.setHours(0, 0, 0, 0);
+      
+  //     // Add "Overdue" indicator for past dates
+  //     return date < today 
+  //       ? `${date.toLocaleDateString()} (Overdue)`
+  //       : date.toLocaleDateString();
+  //   },
+  //   cellClassName: (params) => {
+  //     if (!params.value) return '';
+  //     const today = new Date();
+  //     today.setHours(0, 0, 0, 0);
+  //     return params.value < today ? 'overdue' : '';
+  //   }
+  // },
 ];
 
 interface ShipmentDataGridProps {

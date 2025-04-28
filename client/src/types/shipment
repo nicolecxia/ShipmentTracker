@@ -6,8 +6,8 @@ export interface Shipment {
   destination: string;
   carrier: string;
   status: 'Created' | 'In Transit' | 'Delivered' | 'Cancelled'; // Union type for specific values
-  shipDate: string | Date; // Can be string (from API) or Date (after parsing)
-  eta: string | Date;
+  shipDate: string; // Can be string (from API) or Date (after parsing)
+  eta: string;
   createdAt?: string | Date;
   updatedAt?: string | Date;
 }
