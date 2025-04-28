@@ -10,7 +10,6 @@ import { GridFilterModel } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import { fetchShipments, fetchShipmentCount } from '../../services/shipmentService';
 
-// const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function ShipmentDashboard() {
   const [paginationModel, setPaginationModel] = useState({
@@ -20,18 +19,25 @@ export default function ShipmentDashboard() {
   const [filterModel, setFilterModel] = useState<GridFilterModel>({
     items: [],
   });
-
- 
   const [shipments, setShipments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
+  const [statusFilter, setStatusFilter] = useState('');
+  const [carrierFilter, setCarrierFilter] = useState('');
+  const [rowCount, setRowCount] = useState(0);
 
   const loadData = async () => {
     setLoading(true);
-    const data = await fetchShipments({
-    page: paginationModel.page + 1, // Backend is 1-based
-    pageSize: paginationModel.pageSize,
-  });
+    try{
+  // Convert filterModel to API params
+  const filters = {
+  status: filterModel.items.find(item => item.field === 'status')?.value,
+  carrier: filterModel.items.find(item => item.field === 'carrier')?.value,
+  page: paginationModel.page + 1,
+  pageSize: paginationModel.pageSize
+ };
+
+    const data = await fetchShipments(filters);
       
     setShipments(data);
 
@@ -39,12 +45,24 @@ export default function ShipmentDashboard() {
     setTotalCount(count);
     console.log('Total Count:', count);
     console.log('Shipments:', data);
+   }catch (error) {
+    console.error('Error fetching shipments:', error);
+    setShipments([]);
+    setTotalCount(0);
+  } finally {
     setLoading(false);
-    };
+  }
+};
 
+// Prevents excessive API calls while typing,300ms delay before sending the request
     useEffect(() => {
-      loadData();
-    }, []);
+      const timer = setTimeout(() => {
+        loadData();
+      }, 300);
+      
+      return () => clearTimeout(timer);
+    }, [filterModel, paginationModel]);
+  
 
   return (
     <Box sx={{ p: 4 }}>

@@ -1,5 +1,7 @@
 import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel } from '@mui/x-data-grid';
 import { Shipment } from '../types/shipment';
+import ShipmentFilters from "@/components/ShipmentFilters";
+
 
 const columns: GridColDef<Shipment>[] = [
   { field: 'trackingNumber', headerName: 'Tracking #', width: 150 },
@@ -76,6 +78,31 @@ export default function ShipmentDataGrid({
   rowCount,
 }: ShipmentDataGridProps) {
   return (
+    <div style={{ height: 600, width: '100%' }}>
+      <ShipmentFilters
+        statusFilter={filterModel?.items[0]?.value || ''}
+        carrierFilter={filterModel?.items[1]?.value || ''}
+        onStatusChange={(value) => {
+          const newFilterModel = {
+            ...filterModel,
+            items: [
+              { field: 'status', operator: 'equals', value },
+              ...(filterModel?.items.slice(1) || []),
+            ],
+          };
+          onFilterModelChange?.(newFilterModel);
+        }}
+        onCarrierChange={(value) => {
+          const newFilterModel = {
+            ...filterModel,
+            items: [
+              ...(filterModel?.items.slice(0, 1) || []),
+              { field: 'carrier', operator: 'equals', value },
+            ],
+          };
+          onFilterModelChange?.(newFilterModel);
+        }}
+      />
     <DataGrid
       rows={shipments}
       columns={columns}
@@ -90,5 +117,6 @@ export default function ShipmentDataGrid({
       pageSizeOptions={[5, 10, 25]}
       disableRowSelectionOnClick
     />
+    </div>
   );
 }
