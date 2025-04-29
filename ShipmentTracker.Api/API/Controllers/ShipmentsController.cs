@@ -31,24 +31,17 @@ public class ShipmentsController : ControllerBase
     {
         try
         {
-             var shipments = await _repository.GetFilteredShipmentsAsync(carrier, status);
-            
-            // Pagination
-            var totalItems = shipments.Count();
-            var pagedShipments = shipments
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-                
+             var (shipments, totalItems) = await _repository.GetFilteredShipmentsAsync(carrier, status, page, pageSize);
+
+          _logger.LogInformation($"Total items: {totalItems}, Page: {page}, PageSize: {pageSize}");
+
             return Ok(new
             {
-                Shipments = pagedShipments,
+                Shipments = shipments,
                 Total = totalItems,
                 Page = page,
                 PageSize = pageSize
             });
-
-          
         }
         catch (Exception ex)
         {

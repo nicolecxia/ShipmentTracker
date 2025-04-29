@@ -36,7 +36,7 @@ namespace Infrastructure.Repositories
         // }
 
    
-        public async Task<IEnumerable<Shipment>> GetFilteredShipmentsAsync(string carrier, string status)
+        public async Task<(List<Shipment> Items, int TotalCount)> GetFilteredShipmentsAsync(string carrier, string status, int page, int pageSize)
         {
             var query = _context.Shipments.AsQueryable();
 
@@ -46,8 +46,17 @@ namespace Infrastructure.Repositories
             if (!string.IsNullOrEmpty(status))
                 query = query.Where(s => s.Status == status);
 
-            return await query.AsNoTracking().ToListAsync();
-        }
+                  // Get TOTAL count (before pagination)
+            int totalCount = await query.CountAsync();
+
+            // Apply pagination and execute query
+            var items = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
+                }
 
         public async Task<Shipment> AddShipmentAsync(Shipment shipment)
         {
@@ -64,7 +73,7 @@ namespace Infrastructure.Repositories
 
         if (shipment == null)
         return false;
-        
+
           // Update properties
             shipment.Status = status;
             shipment.UpdatedAt = DateTime.UtcNow;

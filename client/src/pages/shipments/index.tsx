@@ -59,7 +59,8 @@ export default function ShipmentDashboard() {
         status: activeFilters.status,
         carrier: activeFilters.carrier
       });
-      console.log('getactiveFilters:', activeFilters);
+      console.log('paginationModel:', paginationModel.page + 1);
+      console.log('pageSize:', paginationModel.pageSize);
 
     setShipments(data);
     setTotalCount(data.total || 0);

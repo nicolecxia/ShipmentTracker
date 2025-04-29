@@ -14,7 +14,7 @@ export const fetchShipments = async (params: {
   const response = await axios.get(`${API_BASE_URL}/shipments`, {
     params: {
       page: params.page,
-      limit: params.pageSize,
+      pageSize: params.pageSize,
       ...(params.status && { status: params.status }),
       ...(params.carrier && { carrier: params.carrier })
     },
