@@ -6,7 +6,7 @@ namespace Infrastructure.Data;
 public class AppDbContext : DbContext
 {
     public DbSet<Shipment> Shipments { get; set; }
-    // public DbSet<Carrier> Carriers { get; set; } // 单独承运商表
+    public DbSet<Carrier> Carriers { get; set; } // 单独承运商表
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -20,12 +20,25 @@ public class AppDbContext : DbContext
             entity.Property(s => s.Status).HasMaxLength(20);
         });
 
-
+        modelBuilder.Entity<Carrier>(entity =>
+        {
+            entity.HasIndex(c => c.Name).IsUnique();
+            entity.Property(c => c.Name).HasMaxLength(50);
+        });
+     
         SeedData(modelBuilder);
     }
 
        private void SeedData(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Carrier>().HasData(
+            new Carrier { Id = 1, Name = "UPS" },
+            new Carrier { Id = 2, Name = "FedEx" },
+            new Carrier { Id = 3, Name = "DHL" },
+            new Carrier { Id = 4, Name = "USPS" }
+        );
+
+
          modelBuilder.Entity<Shipment>().HasData(
            new Shipment
             {

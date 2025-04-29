@@ -2,6 +2,7 @@ using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Controllers;
 
@@ -84,6 +85,33 @@ public class ShipmentsController : ControllerBase
             return Ok(shipments);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Shipment>> GetShipmentsByIDAsync(int id)
+        {
+            var shipment = await _repository.GetShipmentsByIDAsync(id);
+            if (shipment == null)
+                return NotFound();
+            return Ok(shipment);
+        }
+
+
+      [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateStatus(int id, [FromBody] StatusUpdateDto dto)
+        {
+            var success = await _repository.UpdateShipmentStatusAsync(id, dto.Status);
+            if (!success)
+                return NotFound();
+            
+            return NoContent(); // 204 No Content
+        }
+
+        public class StatusUpdateDto
+        {
+            [Required]
+            [RegularExpression("Created|In Transit|Delivered|Cancelled", ErrorMessage = "Invalid status")]
+            public string Status { get; set; }
+        }  
+
     // [HttpPut("{id}/status")]
     // public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
     // {
@@ -115,9 +143,4 @@ public class ShipmentsController : ControllerBase
     //     return Ok(new[] { "UPS", "FedEx", "USPS", "DHL" });
     // }
 
-    [HttpGet("count")]
-    public ActionResult<IEnumerable<string>> GetCount()
-    {
-        return Ok(new[] { "4" });
-    }
 }

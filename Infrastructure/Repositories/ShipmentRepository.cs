@@ -17,13 +17,23 @@ namespace Infrastructure.Repositories
             return await _context.Shipments.ToListAsync();
         }
 
-        public async Task<IEnumerable<Shipment>> GetShipmentsByStatusAsync(string status)
+ 
+        public async Task<IEnumerable<Shipment>> GetShipmentsByIDAsync(int id)
         {
             return await _context.Shipments
-                .Where(s => s.Status == status)
+                .Where(s => s.Id == id)
                 .AsNoTracking()
                 .ToListAsync();
         }
+       
+
+        // public async Task<IEnumerable<Shipment>> GetShipmentsByStatusAsync(string status)
+        // {
+        //     return await _context.Shipments
+        //         .Where(s => s.Status == status)
+        //         .AsNoTracking()
+        //         .ToListAsync();
+        // }
 
    
         public async Task<IEnumerable<Shipment>> GetFilteredShipmentsAsync(string carrier, string status)
@@ -44,6 +54,19 @@ namespace Infrastructure.Repositories
             _context.Shipments.Add(shipment);
             await _context.SaveChangesAsync();
             return shipment;
+        }
+
+        public async Task<bool> UpdateShipmentStatusAsync(int id, string status)
+        {
+            var shipment = await _context.Shipments.FindAsync(id);
+            if (shipment == null)
+                return false;
+
+            shipment.Status = status;
+            shipment.UpdatedAt = DateTime.UtcNow;
+            
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

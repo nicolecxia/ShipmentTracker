@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 
 public interface IShipmentRepository : IRepository<Shipment>
 {
-    Task<IEnumerable<Shipment>> GetShipmentsByStatusAsync(string status);
-    Task<IEnumerable<Shipment>> GetFilteredShipmentsAsync(string carrier, string status);
-
        Task<IEnumerable<Shipment>> GetAllShipmentsAsync();
+        Task<IEnumerable<Shipment>> GetFilteredShipmentsAsync(string carrier, string status);
        Task<Shipment> AddShipmentAsync(Shipment shipment);
-        // Task<Shipment?> UpdateShipmentAsync(int id, Shipment shipment);
+       Task<bool> UpdateShipmentStatusAsync(int id, string status);
+       Task<IEnumerable<Shipment>> GetShipmentsByIDAsync(int id);
     
 }

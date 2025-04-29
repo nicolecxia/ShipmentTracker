@@ -62,11 +62,9 @@ export default function ShipmentDashboard() {
       console.log('getactiveFilters:', activeFilters);
 
     setShipments(data);
+    setTotalCount(data.total || 0);
 
-    const count = await fetchShipmentCount();
-    setTotalCount(count);
-
-    console.log('Total Count:', count);
+    console.log('Total Count:', data.total || 0);
     console.log('Shipments:', data);
    }catch (error) {
     console.error('Error fetching shipments:', error);

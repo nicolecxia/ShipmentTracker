@@ -33,6 +33,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // 注册特定仓储,这是框架原生支持接口注入
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
+builder.Services.AddScoped<ICarrierRepository, CarriersRepository>();
 
 
 var app = builder.Build();

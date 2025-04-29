@@ -62,12 +62,7 @@ export const createShipment = async (shipmentData: ShipmentFormValues) => {
   }
 };
 
-export const fetchShipmentCount = async (filters?: any) => {
-  const response = await axios.get(`${API_BASE_URL}/shipments/count`, {
-    params: filters,
-  });
-  return response.data.count;
-};
+
 
 export const addShipment = async (data: ShipmentFormValues) => {
   // 转换日期格式
