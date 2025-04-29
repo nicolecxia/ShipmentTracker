@@ -1,6 +1,7 @@
 import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel } from '@mui/x-data-grid';
 import { Shipment } from '../types/shipment';
 import ShipmentFilters from "@/components/ShipmentFilters";
+import { useEffect, useState } from 'react';
 
 
 const columns: GridColDef<Shipment>[] = [
@@ -77,9 +78,28 @@ export default function ShipmentDataGrid({
   onFilterModelChange,
   rowCount,
 }: ShipmentDataGridProps) {
+
+   // State for independent filter controls
+   const [statusFilter, setStatusFilter] = useState('');
+   const [carrierFilter, setCarrierFilter] = useState('');
+ 
+   // Sync filters with DataGrid's filterModel
+   useEffect(() => {
+     const items = [];
+     if (statusFilter) {
+       items.push({ field: 'status', operator: 'equals', value: statusFilter });
+     }
+     if (carrierFilter) {
+       items.push({ field: 'carrier', operator: 'equals', value: carrierFilter });
+     }
+     
+     onFilterModelChange?.({ items, linkOperator: 'and' });
+   }, [statusFilter, carrierFilter]);
+ 
+
   return (
     <div style={{ height: 600, width: '100%' }}>
-      <ShipmentFilters
+      {/* <ShipmentFilters
         statusFilter={filterModel?.items[0]?.value || ''}
         carrierFilter={filterModel?.items[1]?.value || ''}
         onStatusChange={(value) => {
@@ -102,6 +122,12 @@ export default function ShipmentDataGrid({
           };
           onFilterModelChange?.(newFilterModel);
         }}
+      /> */}
+       <ShipmentFilters
+        statusFilter={statusFilter}
+        carrierFilter={carrierFilter}
+        onStatusChange={setStatusFilter}
+        onCarrierChange={setCarrierFilter}
       />
     <DataGrid
       rows={shipments}

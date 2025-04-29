@@ -107,9 +107,9 @@ public class ShipmentsController : ControllerBase
     //     return Ok(new[] { "UPS", "FedEx", "USPS", "DHL" });
     // }
 
-    // [HttpGet("count")]
-    // public ActionResult<IEnumerable<string>> GetCount()
-    // {
-    //     return Ok(new[] { "4" });
-    // }
+    [HttpGet("count")]
+    public ActionResult<IEnumerable<string>> GetCount()
+    {
+        return Ok(new[] { "4" });
+    }
 }

@@ -22,27 +22,50 @@ export default function ShipmentDashboard() {
   const [shipments, setShipments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
-  const [statusFilter, setStatusFilter] = useState('');
-  const [carrierFilter, setCarrierFilter] = useState('');
+  // const [statusFilter, setStatusFilter] = useState('');
+  // const [carrierFilter, setCarrierFilter] = useState('');
   const [rowCount, setRowCount] = useState(0);
+
+
+ // Extract filter values from filterModel
+ const getActiveFilters = () => {
+  return {
+    status: filterModel.items.find(item => item.field === 'status')?.value || '',
+    carrier: filterModel.items.find(item => item.field === 'carrier')?.value || ''
+  };
+};
+
+// 筛选变更处理（确保只有1个筛选条件）
+// const handleFilterModelChange = (newModel: GridFilterModel) => {
+//   if (newModel.items.length > 1) {
+//     // 如果尝试设置多个筛选，则只保留最后一个
+//     setFilterModel({
+//       items: [newModel.items[newModel.items.length - 1]]
+//     });
+//   } else {
+//     setFilterModel(newModel);
+//   }
+// };
+
 
   const loadData = async () => {
     setLoading(true);
     try{
-  // Convert filterModel to API params
-  const filters = {
-  status: filterModel.items.find(item => item.field === 'status')?.value,
-  carrier: filterModel.items.find(item => item.field === 'carrier')?.value,
-  page: paginationModel.page + 1,
-  pageSize: paginationModel.pageSize
- };
+  
+      const activeFilters = getActiveFilters();
+      const data = await fetchShipments({
+        page: paginationModel.page + 1,
+        pageSize: paginationModel.pageSize,
+        status: activeFilters.status,
+        carrier: activeFilters.carrier
+      });
+      console.log('getactiveFilters:', activeFilters);
 
-    const data = await fetchShipments(filters);
-      
     setShipments(data);
 
     const count = await fetchShipmentCount();
     setTotalCount(count);
+
     console.log('Total Count:', count);
     console.log('Shipments:', data);
    }catch (error) {
@@ -55,6 +78,7 @@ export default function ShipmentDashboard() {
 };
 
 // Prevents excessive API calls while typing,300ms delay before sending the request
+ // Trigger loadData when filters or pagination changes
     useEffect(() => {
       const timer = setTimeout(() => {
         loadData();
