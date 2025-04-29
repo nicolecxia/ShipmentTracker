@@ -48,8 +48,8 @@ public class AppDbContext : DbContext
                 Destination = "Los Angeles",
                 Carrier = "UPS",
                 Status = "In Transit",
-                ShipDate = DateTime.UtcNow.AddDays(-2).ToString("O"),
-                ETA = DateTime.UtcNow.AddDays(3).ToString("O"),
+                ShipDate = DateTime.UtcNow.AddDays(-2).ToString("yyyy-MM-dd"),
+                ETA = DateTime.UtcNow.AddDays(3).ToString("yyyy-MM-dd"),
             },
             new Shipment
             {
@@ -59,8 +59,8 @@ public class AppDbContext : DbContext
                 Destination = "Miami",
                 Carrier = "FedEx",
                 Status = "Delivered",
-                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
-                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("yyyy-MM-dd"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"),
             },
             new Shipment
             {
@@ -70,8 +70,8 @@ public class AppDbContext : DbContext
                 Destination = "Miami",
                 Carrier = "FedEx",
                 Status = "Pending",
-                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
-                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("yyyy-MM-dd"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"),
             },
             new Shipment
             {
@@ -81,8 +81,8 @@ public class AppDbContext : DbContext
                 Destination = "Miami",
                 Carrier = "FedEx",
                 Status = "Delivered",
-                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
-                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("yyyy-MM-dd"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"),
             },
             new Shipment
             {
@@ -92,8 +92,8 @@ public class AppDbContext : DbContext
                 Destination = "Miami",
                 Carrier = "FedEx",
                 Status = "Cancelled",
-                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
-                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("yyyy-MM-dd"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"),
             },
             new Shipment
             {
@@ -103,8 +103,8 @@ public class AppDbContext : DbContext
                 Destination = "Miami",
                 Carrier = "FedEx",
                 Status = "Delivered",
-                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
-                ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
+                ShipDate = DateTime.UtcNow.AddDays(-5).ToString("yyyy-MM-dd"),
+                ETA = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"),
             }
          );
     }

@@ -17,8 +17,8 @@ const columns: GridColDef<Shipment>[] = [
     width: 150,
     renderCell: (params) => <StatusBadge status={params.value} />
   },
-  // { field: 'shipDate', headerName: 'Ship Date', width: 150, type: 'date' },
-  // { field: 'eta', headerName: 'ETA', width: 150, type: 'date' },
+  { field: 'shipDate', headerName: 'Ship Date', width: 150 },
+  { field: 'eta', headerName: 'ETA', width: 150 },
   // { 
   //   field: 'shipDate', 
   //   headerName: 'Ship Date', 
@@ -32,6 +32,7 @@ const columns: GridColDef<Shipment>[] = [
   //     return isNaN(date.getTime()) ? null : date;
   //   },
   //   valueFormatter: (params) => {
+  //     if (!params?.value) return 'N/A';
   //     // Format the date for display
   //     return params.value?.toLocaleDateString() || 'Invalid date';
   //   }
@@ -39,31 +40,38 @@ const columns: GridColDef<Shipment>[] = [
   // { 
   //   field: 'eta', 
   //   headerName: 'ETA', 
-  //   width: 150, 
+  //   width: 150,
   //   type: 'date',
   //   valueGetter: (params) => {
-  //     const date = new Date(params.row.eta);
-  //     return isNaN(date.getTime()) ? null : date;
+  //     // Safely handle missing/undefined/null eta
+  //     if (!params.row?.eta) return null;
+      
+  //     try {
+  //       const date = new Date(params.row.eta);
+  //       return isNaN(date.getTime()) ? null : date;
+  //     } catch {
+  //       return null;
+  //     }
   //   },
   //   valueFormatter: (params) => {
-  //     const date = params.value;
-  //     if (!date) return 'Invalid date';
+  //     if (!params.value) return 'Not set';  // Handles null/undefined
       
-  //     const today = new Date();
-  //     today.setHours(0, 0, 0, 0);
-      
-  //     // Add "Overdue" indicator for past dates
-  //     return date < today 
-  //       ? `${date.toLocaleDateString()} (Overdue)`
-  //       : date.toLocaleDateString();
+  //     // Format valid dates
+  //     return params.value.toLocaleDateString('en-US', {
+  //       year: 'numeric',
+  //       month: 'short',
+  //       day: 'numeric'
+  //     });
   //   },
   //   cellClassName: (params) => {
-  //     if (!params.value) return '';
+  //     if (!params.value) return 'missing-date';
+      
+  //     // Highlight overdue dates
   //     const today = new Date();
   //     today.setHours(0, 0, 0, 0);
   //     return params.value < today ? 'overdue' : '';
   //   }
-  // },
+  // }
 ];
 
 interface ShipmentDataGridProps {
@@ -139,7 +147,7 @@ export default function ShipmentDataGrid({
     };
 
   return (
-    <div style={{ height: 600, width: '100%' }}>
+    <div style={{ width: '100%' }}>
     <ShipmentFilters
           statusFilter={activeFilter?.field === 'status' ? activeFilter.value : ''}
           carrierFilter={activeFilter?.field === 'carrier' ? activeFilter.value : ''}
