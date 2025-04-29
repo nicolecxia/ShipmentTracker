@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography, MenuItem } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { addShipment } from '@/services/shipmentService';
+import { createShipment } from '@/services/shipmentService';
 import { ShipmentFormValues } from '../../types/shipment';
 
 const carriers = ['UPS', 'FedEx', 'USPS', 'DHL'];
@@ -18,7 +18,7 @@ export default function AddShipment() {
     try {
       console.log('Form Data:', formData);
 
-      await addShipment(formData);
+      await createShipment(formData);
       router.push('/shipments');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.data.errors) {

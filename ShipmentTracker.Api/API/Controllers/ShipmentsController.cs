@@ -56,27 +56,26 @@ public class ShipmentsController : ControllerBase
         }
     }
 
-    // [HttpPost]
-    // public async Task<ActionResult<Shipment>> CreateShipment(Shipment shipment)
-    // {
-    //     if (!ModelState.IsValid)
-    //     {
-    //         return BadRequest(ModelState);
-    //     }
+    [HttpPost]
+    public async Task<ActionResult<Shipment>> CreateShipment(Shipment shipment)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         
-    //     try
-    //     {
-    //         _context.Shipments.Add(shipment);
-    //         await _context.SaveChangesAsync();
+        try
+        {
+            var createdShipment = await _repository.AddShipmentAsync(shipment);
             
-    //         return CreatedAtAction(nameof(GetShipments), new { id = shipment.Id }, shipment);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         _logger.LogError(ex, "Error creating shipment");
-    //         return StatusCode(500, "An error occurred while creating the shipment.");
-    //     }
-    // }
+            return CreatedAtAction(nameof(GetShipments), new { id = shipment.Id }, shipment);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating shipment");
+            return StatusCode(500, "An error occurred while creating the shipment.");
+        }
+    }
 
      [HttpGet("all")]
         public async Task<IActionResult> GetAll()

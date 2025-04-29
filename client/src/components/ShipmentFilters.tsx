@@ -27,7 +27,7 @@ export default function ShipmentFilters({
         label="Status"
         id={statusId}
         value={statusFilter}
-        onChange={(e) => onStatusChange(e.target.value)}
+        onChange={(e) => onStatusChange(e.target.value=== 'All' ? '' : e.target.value)}
         sx={{ minWidth: 150 }}
         InputLabelProps={{ htmlFor: statusId }}
         SelectProps={{
@@ -48,7 +48,7 @@ export default function ShipmentFilters({
         label="Carrier"
         id={carrierId}
         value={carrierFilter}
-        onChange={(e) => onCarrierChange(e.target.value)}
+        onChange={(e) => onCarrierChange(e.target.value=== 'All' ? '' : e.target.value)}
         sx={{ minWidth: 150 }}
         InputLabelProps={{ htmlFor: carrierId }}
         SelectProps={{

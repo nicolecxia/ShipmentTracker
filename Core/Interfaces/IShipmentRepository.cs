@@ -8,7 +8,7 @@ public interface IShipmentRepository : IRepository<Shipment>
     Task<IEnumerable<Shipment>> GetFilteredShipmentsAsync(string carrier, string status);
 
        Task<IEnumerable<Shipment>> GetAllShipmentsAsync();
-        // Task<Shipment> AddShipmentAsync(Shipment shipment);
+       Task<Shipment> AddShipmentAsync(Shipment shipment);
         // Task<Shipment?> UpdateShipmentAsync(int id, Shipment shipment);
     
 }

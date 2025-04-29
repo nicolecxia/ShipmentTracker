@@ -38,5 +38,12 @@ namespace Infrastructure.Repositories
 
             return await query.AsNoTracking().ToListAsync();
         }
+
+        public async Task<Shipment> AddShipmentAsync(Shipment shipment)
+        {
+            _context.Shipments.Add(shipment);
+            await _context.SaveChangesAsync();
+            return shipment;
+        }
     }
 }

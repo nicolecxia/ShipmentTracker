@@ -42,6 +42,26 @@ export const fetchShipments = async (params: {
   };
 };
 
+
+
+export const createShipment = async (shipmentData: ShipmentFormValues) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/shipments`, shipmentData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    return response.data; // Returns the created shipment object
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Handle API error responses
+      throw new Error(error.response?.data?.title || 'Failed to create shipment');
+    }
+    throw new Error('Network error occurred');
+  }
+};
+
 export const fetchShipmentCount = async (filters?: any) => {
   const response = await axios.get(`${API_BASE_URL}/shipments/count`, {
     params: filters,
