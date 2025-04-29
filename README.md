@@ -26,12 +26,12 @@ shipmenttracker/
 ### 1.Backend Setup  
 - `git clone https://github.com/nicolecxia/ShipmentTracker.git`
 - `cd ShipmentTracker.Api`
-- `dotnet run`    #API runs at local environment,
+- `dotnet run`    
 
 ### 2.Frontend Setup  
 - `cd client`
 - `npm install  # or yarn`
-- Create .env file, setting up your API URL<br>
+- Create .env file, setting up your server API URL. For example: <br>
   `NEXT_PUBLIC_API_BASE_URL=http://localhost:5251/api`
 - `npm run dev`
 
