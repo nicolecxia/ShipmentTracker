@@ -106,6 +106,7 @@ public class AppDbContext : DbContext
                 ShipDate = DateTime.UtcNow.AddDays(-5).ToString("yyyy-MM-dd"),
                 ETA = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"),
             }
+            
          );
     }
 }

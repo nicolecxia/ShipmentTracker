@@ -19,59 +19,6 @@ const columns: GridColDef<Shipment>[] = [
   },
   { field: 'shipDate', headerName: 'Ship Date', width: 150 },
   { field: 'eta', headerName: 'ETA', width: 150 },
-  // { 
-  //   field: 'shipDate', 
-  //   headerName: 'Ship Date', 
-  //   width: 150, 
-  //   type: 'date',
-  //   valueGetter: (params) => {
-  //     const dateString = params.row?.shipDate;
-  //     if (!dateString || typeof dateString !== 'string') return null;
-      
-  //     const date = new Date(dateString);
-  //     return isNaN(date.getTime()) ? null : date;
-  //   },
-  //   valueFormatter: (params) => {
-  //     if (!params?.value) return 'N/A';
-  //     // Format the date for display
-  //     return params.value?.toLocaleDateString() || 'Invalid date';
-  //   }
-  // },
-  // { 
-  //   field: 'eta', 
-  //   headerName: 'ETA', 
-  //   width: 150,
-  //   type: 'date',
-  //   valueGetter: (params) => {
-  //     // Safely handle missing/undefined/null eta
-  //     if (!params.row?.eta) return null;
-      
-  //     try {
-  //       const date = new Date(params.row.eta);
-  //       return isNaN(date.getTime()) ? null : date;
-  //     } catch {
-  //       return null;
-  //     }
-  //   },
-  //   valueFormatter: (params) => {
-  //     if (!params.value) return 'Not set';  // Handles null/undefined
-      
-  //     // Format valid dates
-  //     return params.value.toLocaleDateString('en-US', {
-  //       year: 'numeric',
-  //       month: 'short',
-  //       day: 'numeric'
-  //     });
-  //   },
-  //   cellClassName: (params) => {
-  //     if (!params.value) return 'missing-date';
-      
-  //     // Highlight overdue dates
-  //     const today = new Date();
-  //     today.setHours(0, 0, 0, 0);
-  //     return params.value < today ? 'overdue' : '';
-  //   }
-  // }
 ];
 
 interface ShipmentDataGridProps {
