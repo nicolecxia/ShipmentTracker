@@ -79,56 +79,40 @@ export default function ShipmentDataGrid({
   rowCount,
 }: ShipmentDataGridProps) {
 
-   // State for independent filter controls
-   const [statusFilter, setStatusFilter] = useState('');
-   const [carrierFilter, setCarrierFilter] = useState('');
+  //  // State for independent filter controls
+  //  const [statusFilter, setStatusFilter] = useState('');
+  //  const [carrierFilter, setCarrierFilter] = useState('');
+
+    // 独立的状态管理（与DataGrid解耦）
+    const [activeFilter, setActiveFilter] = useState<{
+      field: 'status' | 'carrier';
+      value: string;
+    } | null>(null);
  
-   // Sync filters with DataGrid's filterModel
-   useEffect(() => {
-     const items = [];
-     if (statusFilter) {
-       items.push({ field: 'status', operator: 'equals', value: statusFilter });
-     }
-     if (carrierFilter) {
-       items.push({ field: 'carrier', operator: 'equals', value: carrierFilter });
-     }
-     
-     onFilterModelChange?.({ items, linkOperator: 'and' });
-   }, [statusFilter, carrierFilter]);
- 
+      // 同步筛选状态到DataGrid
+      useEffect(() => {
+        onFilterModelChange?.({
+          items: activeFilter ? [{
+            field: activeFilter.field,
+            operator: 'equals',
+            value: activeFilter.value
+          }] : []
+        });
+      }, [activeFilter]);
+
 
   return (
     <div style={{ height: 600, width: '100%' }}>
-      {/* <ShipmentFilters
-        statusFilter={filterModel?.items[0]?.value || ''}
-        carrierFilter={filterModel?.items[1]?.value || ''}
-        onStatusChange={(value) => {
-          const newFilterModel = {
-            ...filterModel,
-            items: [
-              { field: 'status', operator: 'equals', value },
-              ...(filterModel?.items.slice(1) || []),
-            ],
-          };
-          onFilterModelChange?.(newFilterModel);
-        }}
-        onCarrierChange={(value) => {
-          const newFilterModel = {
-            ...filterModel,
-            items: [
-              ...(filterModel?.items.slice(0, 1) || []),
-              { field: 'carrier', operator: 'equals', value },
-            ],
-          };
-          onFilterModelChange?.(newFilterModel);
-        }}
-      /> */}
-       <ShipmentFilters
-        statusFilter={statusFilter}
-        carrierFilter={carrierFilter}
-        onStatusChange={setStatusFilter}
-        onCarrierChange={setCarrierFilter}
-      />
+    <ShipmentFilters
+          statusFilter={activeFilter?.field === 'status' ? activeFilter.value : ''}
+          carrierFilter={activeFilter?.field === 'carrier' ? activeFilter.value : ''}
+          onStatusChange={(value) => {
+            setActiveFilter(value ? { field: 'status', value } : null);
+          }}
+          onCarrierChange={(value) => {
+            setActiveFilter(value ? { field: 'carrier', value } : null);
+          }}
+        />
     <DataGrid
       rows={shipments}
       columns={columns}
