@@ -69,7 +69,7 @@ public class AppDbContext : DbContext
                 Origin = "Toronto",
                 Destination = "Miami",
                 Carrier = "FedEx",
-                Status = "Delivered",
+                Status = "Pending",
                 ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
                 ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
             },
@@ -87,11 +87,11 @@ public class AppDbContext : DbContext
             new Shipment
             {
                 Id = 5,
-                TrackingNumber = "TN87654321",
+                TrackingNumber = "TN87688321",
                 Origin = "Shenzhen",
                 Destination = "Miami",
                 Carrier = "FedEx",
-                Status = "Delivered",
+                Status = "Cancelled",
                 ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
                 ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
             },

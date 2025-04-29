@@ -1,7 +1,7 @@
 import { TextField, MenuItem, Box } from '@mui/material';
 import { useId } from 'react';
 
-const statusOptions = ['All', 'Created', 'In Transit', 'Delivered', 'Cancelled'];
+const statusOptions = ['All', 'Pending', 'In Transit', 'Delivered', 'Cancelled'];
 const carrierOptions = ['All', 'UPS', 'FedEx', 'USPS', 'DHL'];
 
 export default function ShipmentFilters({

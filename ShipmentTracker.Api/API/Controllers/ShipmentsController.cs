@@ -95,10 +95,10 @@ public class ShipmentsController : ControllerBase
         }
 
 
-      [HttpPut("{id}/status")]
-        public async Task<IActionResult> UpdateStatus(int id, [FromBody] StatusUpdateDto dto)
+      [HttpPut("{trackingNumber}/status")]
+        public async Task<IActionResult> UpdateStatus(string trackingNumber, [FromBody] StatusUpdateDto dto)
         {
-            var success = await _repository.UpdateShipmentStatusAsync(id, dto.Status);
+            var success = await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
             if (!success)
                 return NotFound();
             
@@ -108,39 +108,7 @@ public class ShipmentsController : ControllerBase
         public class StatusUpdateDto
         {
             [Required]
-            [RegularExpression("Created|In Transit|Delivered|Cancelled", ErrorMessage = "Invalid status")]
+            [RegularExpression("Pending|In Transit|Delivered|Cancelled", ErrorMessage = "Invalid status")]
             public string Status { get; set; }
         }  
-
-    // [HttpPut("{id}/status")]
-    // public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
-    // {
-    //     try
-    //     {
-    //         // var shipment = await _context.Shipments.FindAsync(id);
-    //         // if (shipment == null)
-    //         // {
-    //         //     return NotFound();
-    //         // }
-            
-    //         // shipment.Status = status;
-    //         // shipment.UpdatedAt = DateTime.UtcNow;
-            
-    //         // await _context.SaveChangesAsync();
-            
-    //         return NoContent();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         _logger.LogError(ex, $"Error updating status for shipment {id}");
-    //         return StatusCode(500, "An error occurred while updating the shipment status.");
-    //     }
-    // }
-
-    // [HttpGet("carriers")]
-    // public ActionResult<IEnumerable<string>> GetCarriers()
-    // {
-    //     return Ok(new[] { "UPS", "FedEx", "USPS", "DHL" });
-    // }
-
 }

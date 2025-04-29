@@ -56,15 +56,19 @@ namespace Infrastructure.Repositories
             return shipment;
         }
 
-        public async Task<bool> UpdateShipmentStatusAsync(int id, string status)
+        public async Task<bool> UpdateShipmentStatusAsync(string trackingNumber, string status)
         {
-            var shipment = await _context.Shipments.FindAsync(id);
-            if (shipment == null)
-                return false;
+        // Find single shipment by tracking number
+         var shipment = await _context.Shipments
+        .FirstOrDefaultAsync(s => s.TrackingNumber == trackingNumber);
 
+        if (shipment == null)
+        return false;
+        
+          // Update properties
             shipment.Status = status;
             shipment.UpdatedAt = DateTime.UtcNow;
-            
+             // Save changes
             await _context.SaveChangesAsync();
             return true;
         }

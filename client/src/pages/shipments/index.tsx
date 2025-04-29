@@ -8,7 +8,7 @@ import { Shipment } from '../../types/shipment';
 import Link from 'next/link';
 import { GridFilterModel } from '@mui/x-data-grid';
 import { useEffect } from 'react';
-import { fetchShipments, fetchShipmentCount } from '../../services/shipmentService';
+import { fetchShipments, fetchShipmentCount, updateShipmentStatus } from '../../services/shipmentService';
 
 
 export default function ShipmentDashboard() {
@@ -105,6 +105,10 @@ export default function ShipmentDashboard() {
         filterModel={filterModel}
         onFilterModelChange={setFilterModel}
         rowCount={shipments?.total || 0}
+        onStatusUpdate={async (trackingNumber, newStatus) => {
+          await updateShipmentStatus(trackingNumber, newStatus);
+          loadData();
+        }}
       />
     </Box>
   );

@@ -63,15 +63,28 @@ export const createShipment = async (shipmentData: ShipmentFormValues) => {
 };
 
 
-
-export const addShipment = async (data: ShipmentFormValues) => {
-  // 转换日期格式
-  const payload = {
-    ...data,
-    shipDate: new Date(data.shipDate).toISOString(),
-    eta: new Date(data.eta).toISOString()
-  };
-
-  const response = await axios.post(`${API_BASE_URL}/shipments`, payload);
+export const updateShipmentStatus = async (trackingNumber: string, status: string) => {
+  const response = await axios.put(
+    `${API_BASE_URL}/shipments/${trackingNumber}/status`,
+    { status },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }
+  );
   return response.data;
 };
+
+
+// export const addShipment = async (data: ShipmentFormValues) => {
+//   // 转换日期格式
+//   const payload = {
+//     ...data,
+//     shipDate: new Date(data.shipDate).toISOString(),
+//     eta: new Date(data.eta).toISOString()
+//   };
+
+//   const response = await axios.post(`${API_BASE_URL}/shipments`, payload);
+//   return response.data;
+// };
