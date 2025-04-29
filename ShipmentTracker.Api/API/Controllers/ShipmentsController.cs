@@ -13,11 +13,13 @@ public class ShipmentsController : ControllerBase
     private readonly IShipmentRepository _repository;
     private readonly ILogger<ShipmentsController> _logger;
 
+//Dependency Injection :使用 IShipmentRepository接口
     public ShipmentsController(IShipmentRepository repository, ILogger<ShipmentsController> logger)
     {
         _repository = repository;
         _logger = logger;
     }
+
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Shipment>>> GetShipments(
@@ -64,8 +66,8 @@ public class ShipmentsController : ControllerBase
         
     //     try
     //     {
-    //         // _context.Shipments.Add(shipment);
-    //         // await _context.SaveChangesAsync();
+    //         _context.Shipments.Add(shipment);
+    //         await _context.SaveChangesAsync();
             
     //         return CreatedAtAction(nameof(GetShipments), new { id = shipment.Id }, shipment);
     //     }
@@ -75,6 +77,13 @@ public class ShipmentsController : ControllerBase
     //         return StatusCode(500, "An error occurred while creating the shipment.");
     //     }
     // }
+
+     [HttpGet("all")]
+        public async Task<IActionResult> GetAll()
+        {
+            var shipments = await _repository.GetAllShipmentsAsync();
+            return Ok(shipments);
+        }
 
     // [HttpPut("{id}/status")]
     // public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)

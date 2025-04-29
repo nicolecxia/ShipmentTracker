@@ -25,6 +25,6 @@ export interface ShipmentFormValues {
   origin: string;
   destination: string;
   carrier: string;
-  shipDate: Date | null;
-  eta: Date | null;
+  shipDate: string;
+  eta: string;
 }

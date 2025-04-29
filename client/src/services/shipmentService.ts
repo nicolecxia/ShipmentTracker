@@ -1,43 +1,24 @@
 // src/services/shipmentService.ts
 import axios from 'axios';
 import { console } from 'inspector';
-import { Shipment } from '../types/shipment';
+import { Shipment, ShipmentFormValues } from '../types/shipment';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-// interface Shipment {
-//     id: number;
-//     trackingNumber: string;
-//     origin: string;
-//     destination: string;
-//     carrier: string;
-//     status: string;
-//     shipDate: string;  // From API as string
-//     eta: string;      // From API as string
-//   }
 
 export const fetchShipments = async (params: {
     status?: string;
     carrier?: string;
     page: number;
   pageSize: number;
-  filters?: any;
 }) => {
   const response = await axios.get(`${API_BASE_URL}/shipments`, {
     params: {
       page: params.page,
       limit: params.pageSize,
-      ...params.filters,
+      ...(params.status && { status: params.status }),
+      ...(params.carrier && { carrier: params.carrier })
     },
   });
-
-//       const transformedData = response.data.shipments.map((shipment: Shipment) => ({
-//         ...shipment,
-//         shipDate: shipment.shipDate ||'', 
-//         eta: shipment.eta||''            
-//       }));  
-
-//   return response.data;
 
  // 数据清洗 + 类型安全转换
  const shipments = (response.data.shipments || []).map((item: any) => ({
@@ -66,4 +47,16 @@ export const fetchShipmentCount = async (filters?: any) => {
     params: filters,
   });
   return response.data.count;
+};
+
+export const addShipment = async (data: ShipmentFormValues) => {
+  // 转换日期格式
+  const payload = {
+    ...data,
+    shipDate: new Date(data.shipDate).toISOString(),
+    eta: new Date(data.eta).toISOString()
+  };
+
+  const response = await axios.post(`${API_BASE_URL}/shipments`, payload);
+  return response.data;
 };

@@ -3,24 +3,22 @@ import { Box, Button, TextField, Typography, MenuItem } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { addShipment } from '@/services/shipmentService';
+import { ShipmentFormValues } from '../../types/shipment';
 
 const carriers = ['UPS', 'FedEx', 'USPS', 'DHL'];
 
 export default function AddShipment() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    origin: '',
-    destination: '',
-    carrier: '',
-    shipDate: null,
-    eta: null,
-  });
+  const [formData, setFormData] = useState<ShipmentFormValues>({} as ShipmentFormValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('/api/shipments', formData);
+      console.log('Form Data:', formData);
+
+      await addShipment(formData);
       router.push('/shipments');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.data.errors) {
@@ -74,14 +72,14 @@ export default function AddShipment() {
         <DatePicker
           label="Ship Date"
           value={formData.shipDate}
-          onChange={(newValue) => setFormData({...formData, shipDate: newValue})}
+          onChange={(newValue) => setFormData({...formData, shipDate: newValue.toISOString().split('T')[0]})}
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
         />
         
         <DatePicker
           label="Estimated Arrival (ETA)"
           value={formData.eta}
-          onChange={(newValue) => setFormData({...formData, eta: newValue})}
+          onChange={(newValue) => setFormData({...formData, eta: newValue.toISOString().split('T')[0]})}
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
         />
         

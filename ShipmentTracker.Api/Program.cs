@@ -31,7 +31,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // 注册泛型仓储
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-// 注册特定仓储
+// 注册特定仓储,这是框架原生支持接口注入
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 
 
