@@ -1,5 +1,5 @@
 # ShipmentTracker
- Demostration Video Link: https://www.youtube.com/watch?v=8ZFBc8FuAGU
+Demostration Video Link: https://www.youtube.com/watch?v=8ZFBc8FuAGU
 
 ```text
 shipmenttracker/
@@ -17,18 +17,18 @@ shipmenttracker/
 ├── ShipmentTrackerProject.sln
 └── README.md
 ```
-# Setup Instructions  
-## Prerequisites  
+## Setup Instructions  
+### Prerequisites  
 - Node.js 18+
 - .Net 7 SDK
 - Git
 
-## 1.Backend Setup  
+### 1.Backend Setup  
 - `git clone https://github.com/nicolecxia/ShipmentTracker.git`
 - `cd ShipmentTracker.Api`
 - `dotnet run`    #API runs at local environment,
 
-## 2.Frontend Setup  
+### 2.Frontend Setup  
 - `cd client`
 - `npm install  # or yarn`
 - Create .env file, setting up your API URL<br>
@@ -36,15 +36,15 @@ shipmenttracker/
 - `npm run dev`
 
 
-# Design Choices  
-## Frontend Architecture (Next.js + TypeScript)  
+## Design Choices  
+### Frontend Architecture (Next.js + TypeScript)  
 - Next.js Page Router  
 - TypeScript  
   - Reduces runtime errors with compile-time checks  
 - State Management<br>
   - Context API for global state (carriers list, filters)<br>
   - Local state for form management (avoided Redux for simplicity)
-## UI/UX (Material UI)
+### UI/UX (Material UI)
 - DataGrid Component<br>
   - Implemented server-side pagination/filtering to handle large datasets<br>
   - Custom StatusBadge component with color-coded shipment states<br>
@@ -55,12 +55,12 @@ shipmenttracker/
   - DatePicker for consistent date input<br>
   - Dynamic carrier dropdown populated from API<br>
 
-# Backend Architecture (ASP.NET Core)
+### Backend Architecture (ASP.NET Core)
 - Clean Architecture(Controller, Interface, Repository)
 - Entity Framework Core In-memory database for development/testing simplicity
 - API Design: GET /api/shipments, POST /api/shipments, PUT /api/shipments/{id}/status, GET /api/carriers
 
-# Integration Choices
+### Integration Choices
 - Axios Client
 
 
