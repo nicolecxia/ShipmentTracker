@@ -5,17 +5,29 @@ namespace Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {
+    public DbSet<Shipment> Shipments { get; set; }
+    // public DbSet<Carrier> Carriers { get; set; } // 单独承运商表
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
     
-    public DbSet<Shipment> Shipments { get; set; }
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Seed some initial data
-        _ = modelBuilder.Entity<Shipment>().HasData(
-            new Shipment
+       // 配置实体关系或约束
+        modelBuilder.Entity<Shipment>(entity =>
+        {
+            entity.HasIndex(s => s.TrackingNumber).IsUnique();
+            entity.Property(s => s.Status).HasMaxLength(20);
+        });
+
+
+        SeedData(modelBuilder);
+    }
+
+       private void SeedData(ModelBuilder modelBuilder)
+    {
+         modelBuilder.Entity<Shipment>().HasData(
+           new Shipment
             {
                 Id = 1,
                 TrackingNumber = "TN12345678",
@@ -36,8 +48,7 @@ public class AppDbContext : DbContext
                 Status = "Delivered",
                 ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
                 ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
-            }
-            ,
+            },
             new Shipment
             {
                 Id = 3,
@@ -82,6 +93,6 @@ public class AppDbContext : DbContext
                 ShipDate = DateTime.UtcNow.AddDays(-5).ToString("O"),
                 ETA = DateTime.UtcNow.AddDays(-1).ToString("O"),
             }
-        );
+         );
     }
 }

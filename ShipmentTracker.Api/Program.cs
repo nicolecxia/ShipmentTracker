@@ -1,5 +1,8 @@
 using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore; 
+using Infrastructure.Data;
+using Infrastructure.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,18 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
+
+ 
+// 注册 DbContext
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseInMemoryDatabase("ShipmentTrackerDb"));
+
+// 注册泛型仓储
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+// 注册特定仓储
+builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
+
 
 var app = builder.Build();
 

@@ -4,14 +4,14 @@
     "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj": {}
   },
   "projects": {
-    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj": {
+    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
-        "projectName": "ShipmentTracker.Api",
-        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
+        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj",
+        "projectName": "Core",
+        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj",
         "packagesPath": "/Users/nicolexia/.nuget/packages/",
-        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/obj/",
+        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/nicolexia/.nuget/NuGet/NuGet.Config"
@@ -44,7 +44,157 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/nicolexia/.nuget/packages/",
+        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/nicolexia/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj": {
+                "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
+        "projectName": "ShipmentTracker.Api",
+        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
+        "packagesPath": "/Users/nicolexia/.nuget/packages/",
+        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/nicolexia/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Abstractions": {
               "target": "Package",
               "version": "[9.0.4, )"
             },

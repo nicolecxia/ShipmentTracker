@@ -9,12 +9,13 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class ShipmentsController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    // private readonly AppDbContext _context;
+    private readonly IShipmentRepository _repository;
     private readonly ILogger<ShipmentsController> _logger;
 
-    public ShipmentsController(AppDbContext context, ILogger<ShipmentsController> logger)
+    public ShipmentsController(IShipmentRepository repository, ILogger<ShipmentsController> logger)
     {
-        _context = context;
+        _repository = repository;
         _logger = logger;
     }
 
@@ -27,32 +28,24 @@ public class ShipmentsController : ControllerBase
     {
         try
         {
-            var query = _context.Shipments.AsQueryable();
+             var shipments = await _repository.GetFilteredShipmentsAsync(carrier, status);
             
-            if (!string.IsNullOrEmpty(status))
-            {
-                query = query.Where(s => s.Status == status);
-            }
-            
-            if (!string.IsNullOrEmpty(carrier))
-            {
-                query = query.Where(s => s.Carrier == carrier);
-            }
-            
-            var totalItems = await query.CountAsync();
-            var shipments = await query
-                .OrderByDescending(s => s.CreatedAt)
+            // Pagination
+            var totalItems = shipments.Count();
+            var pagedShipments = shipments
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ToListAsync();
-            
+                .ToList();
+                
             return Ok(new
             {
-                Shipments = shipments,
+                Shipments = pagedShipments,
                 Total = totalItems,
                 Page = page,
                 PageSize = pageSize
             });
+
+          
         }
         catch (Exception ex)
         {
@@ -61,62 +54,62 @@ public class ShipmentsController : ControllerBase
         }
     }
 
-    [HttpPost]
-    public async Task<ActionResult<Shipment>> CreateShipment(Shipment shipment)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+    // [HttpPost]
+    // public async Task<ActionResult<Shipment>> CreateShipment(Shipment shipment)
+    // {
+    //     if (!ModelState.IsValid)
+    //     {
+    //         return BadRequest(ModelState);
+    //     }
         
-        try
-        {
-            _context.Shipments.Add(shipment);
-            await _context.SaveChangesAsync();
+    //     try
+    //     {
+    //         // _context.Shipments.Add(shipment);
+    //         // await _context.SaveChangesAsync();
             
-            return CreatedAtAction(nameof(GetShipments), new { id = shipment.Id }, shipment);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error creating shipment");
-            return StatusCode(500, "An error occurred while creating the shipment.");
-        }
-    }
+    //         return CreatedAtAction(nameof(GetShipments), new { id = shipment.Id }, shipment);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         _logger.LogError(ex, "Error creating shipment");
+    //         return StatusCode(500, "An error occurred while creating the shipment.");
+    //     }
+    // }
 
-    [HttpPut("{id}/status")]
-    public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
-    {
-        try
-        {
-            var shipment = await _context.Shipments.FindAsync(id);
-            if (shipment == null)
-            {
-                return NotFound();
-            }
+    // [HttpPut("{id}/status")]
+    // public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
+    // {
+    //     try
+    //     {
+    //         // var shipment = await _context.Shipments.FindAsync(id);
+    //         // if (shipment == null)
+    //         // {
+    //         //     return NotFound();
+    //         // }
             
-            shipment.Status = status;
-            shipment.UpdatedAt = DateTime.UtcNow;
+    //         // shipment.Status = status;
+    //         // shipment.UpdatedAt = DateTime.UtcNow;
             
-            await _context.SaveChangesAsync();
+    //         // await _context.SaveChangesAsync();
             
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error updating status for shipment {id}");
-            return StatusCode(500, "An error occurred while updating the shipment status.");
-        }
-    }
+    //         return NoContent();
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         _logger.LogError(ex, $"Error updating status for shipment {id}");
+    //         return StatusCode(500, "An error occurred while updating the shipment status.");
+    //     }
+    // }
 
-    [HttpGet("carriers")]
-    public ActionResult<IEnumerable<string>> GetCarriers()
-    {
-        return Ok(new[] { "UPS", "FedEx", "USPS", "DHL" });
-    }
+    // [HttpGet("carriers")]
+    // public ActionResult<IEnumerable<string>> GetCarriers()
+    // {
+    //     return Ok(new[] { "UPS", "FedEx", "USPS", "DHL" });
+    // }
 
-    [HttpGet("count")]
-    public ActionResult<IEnumerable<string>> GetCount()
-    {
-        return Ok(new[] { 4 });
-    }
+    // [HttpGet("count")]
+    // public ActionResult<IEnumerable<string>> GetCount()
+    // {
+    //     return Ok(new[] { "4" });
+    // }
 }
