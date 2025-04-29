@@ -7,7 +7,7 @@ public class Shipment
     public string? Origin { get; set; }
     public string? Destination { get; set; }
     public string? Carrier { get; set; }
-    public string Status { get; set; } = "Created";
+    public string Status { get; set; } = "Pending";
     public string? ShipDate { get; set; }
     public string? ETA { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
