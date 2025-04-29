@@ -40,7 +40,7 @@ shipmenttracker/
 ## Frontend Architecture (Next.js + TypeScript)  
 - Next.js Page Router  
 - TypeScript  
-Reduces runtime errors with compile-time checks  
+  - Reduces runtime errors with compile-time checks  
 - State Management<br>
   - Context API for global state (carriers list, filters)<br>
   - Local state for form management (avoided Redux for simplicity)
@@ -55,7 +55,13 @@ Reduces runtime errors with compile-time checks
   - DatePicker for consistent date input<br>
   - Dynamic carrier dropdown populated from API<br>
 
+# Backend Architecture (ASP.NET Core)
+- Clean Architecture(Controller, Interface, Repository)
+- Entity Framework Core In-memory database for development/testing simplicity
+- API Design: GET /api/shipments, POST /api/shipments, PUT /api/shipments/{id}/status, GET /api/carriers
 
+# Integration Choices
+- Axios Client
 
 
 
