@@ -1,6 +1,6 @@
 // components/StatusBadge.tsx
 import { Chip } from '@mui/material';
-import { ShipmentStatus } from '../types/shipment';
+import { ShipmentStatus } from '@/types/shipment';
 
 
 export const statusColors: Record<ShipmentStatus, string> = {

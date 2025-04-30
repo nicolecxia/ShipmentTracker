@@ -16,6 +16,20 @@ export default function AddShipment() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Validate form data
+      const requiredFields = ['origin', 'destination', 'carrier', 'shipDate', 'eta'];
+      const newErrors: Record<string, string> = {};
+      requiredFields.forEach((field) => {
+        if (!formData[field as keyof ShipmentFormValues]) {
+          newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
+        }
+      });
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+      setErrors({}); // Clear previous errors
+
       console.log('Form Data:', formData);
 
       await createShipment(formData);
