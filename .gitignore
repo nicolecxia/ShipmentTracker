@@ -1,3 +1,9 @@
+# macOS
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+
 # Ignore files for C# project
 bin/
 obj/
