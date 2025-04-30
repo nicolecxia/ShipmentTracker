@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import StatusBadge, { statusColors } from './StatusBadge';
 import { Chip } from '@mui/material';
-import { ShipmentStatus } from '../types/shipment';
+import { ShipmentStatus } from '@/types/shipment';
 
 
 // Mock the MUI Chip component to verify its props

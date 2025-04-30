@@ -1,9 +1,18 @@
 import type { NextConfig } from "next";
 
+const path = require('path');
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   
   webpack: (config, { isServer }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'),  // Points @/ to src/
+      '@/types': path.resolve(__dirname, 'src/types')
+    };
+    config.resolve.plugins = config.resolve.plugins || [];
+
     // Only add these loaders for client-side compilation
     if (!isServer) {
       config.module.rules.push({

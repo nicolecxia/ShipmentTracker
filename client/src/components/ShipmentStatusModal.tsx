@@ -13,7 +13,7 @@ import {
   Box
 } from '@mui/material';
 import  StatusBadge from './StatusBadge';
-import { updateShipmentStatus } from '../services/shipmentService';
+import { updateShipmentStatus } from '@/services/shipmentService';
 
 interface ShipmentStatusModalProps {
   open: boolean;

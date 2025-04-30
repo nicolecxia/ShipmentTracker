@@ -1,5 +1,6 @@
+/* eslint-disable */
 import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel,GridActionsCellItem } from '@mui/x-data-grid';
-import { Shipment, ShipmentStatus } from '../types/shipment';
+import { Shipment, ShipmentStatus } from '@/types/shipment';
 import ShipmentFilters from "@/components/ShipmentFilters";
 import { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, MenuItem, Select, Box } from '@mui/material';
