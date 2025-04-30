@@ -12,9 +12,8 @@ import {
   SelectChangeEvent,
   Box
 } from '@mui/material';
-import { StatusBadge } from './StatusBadge';
+import  StatusBadge from './StatusBadge';
 import { updateShipmentStatus } from '../services/shipmentService';
-import
 
 interface ShipmentStatusModalProps {
   open: boolean;

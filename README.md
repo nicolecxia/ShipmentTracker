@@ -20,7 +20,7 @@ shipmenttracker/
 ## Setup Instructions  
 ### Prerequisites  
 - Node.js 18+
-- .Net 7 SDK
+- .Net 9 SDK
 - Git
 
 ### 1.Backend Setup  
