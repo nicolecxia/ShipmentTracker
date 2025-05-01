@@ -3,16 +3,17 @@ Demostration Video Link: https://www.youtube.com/watch?v=8ZFBc8FuAGU
 
 ```text
 shipmenttracker/
-├── Core/          # Entities, Interface
+├── Core/                    # Entities, Interface
 │   ├── Entities/
 │   └── Interfaces/
-├── Infrastructure/       # EF Core, Repositories
+├── Infrastructure/          # EF Core, Repositories
 │   ├── Data/
 │   └── Repositories/
-├── ShipmentTracker.Api/    # API Controller (ASP.NET Core Web API)
-│   └── API/Controllers
-├── client/         # React + TypeScript
-│   ├── public/
+├── ShipmentTracker.Api/     # API Controller (ASP.NET Core Web API)
+│   ├── API/Controllers/
+│   └── Services             # Service Bus
+├── Unit.Tests/              # Xunit
+├── client/                  # NextJS + Typescript
 │   └── src/
 ├── ShipmentTrackerProject.sln
 └── README.md
