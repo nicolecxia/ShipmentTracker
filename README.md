@@ -10,8 +10,7 @@ shipmenttracker/
 │   ├── Data/
 │   └── Repositories/
 ├── ShipmentTracker.Api/     # API Controller (ASP.NET Core Web API)
-│   ├── API/Controllers/
-│   └── Services             # Service Bus
+│   └── API/Controllers/           
 ├── Unit.Tests/              # Xunit
 ├── client/                  # NextJS + Typescript
 │   └── src/
