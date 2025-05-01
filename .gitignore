@@ -114,3 +114,5 @@ next-env.d.ts
 bin/
 obj/
 
+# ASP.NET Core local configs
+appsettings.Development.json

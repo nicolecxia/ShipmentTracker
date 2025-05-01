@@ -84,18 +84,29 @@ public class ShipmentsController : ControllerBase
             var shipment = await _repository.GetShipmentsByIDAsync(id);
             if (shipment == null)
                 return NotFound();
+        
+            if (shipment == null)
+                return NotFound();
+
             return Ok(shipment);
         }
 
 
       [HttpPut("{trackingNumber}/status")]
-        public async Task<IActionResult> UpdateStatus(string trackingNumber, [FromBody] StatusUpdateDto dto)
+        public async Task<IActionResult> UpdateStatus(string trackingNumber, [FromBody] StatusUpdateDto dto, [FromServices] ServiceBusSender busSender)
         {
-            var success = await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
-            if (!success)
-                return NotFound();
-            
-            return NoContent(); // 204 No Content
+            //   initial logic 
+            // var success = await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
+            // if (!success)
+            //     return NotFound();
+
+        // Upgrade to use ServiceBusSender
+        await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
+    
+        // Service Bus send the event
+         await busSender.SendStatusUpdateEvent(trackingNumber, dto.Status);
+
+         return NoContent(); // 204 No Content
         }
 
         public class StatusUpdateDto

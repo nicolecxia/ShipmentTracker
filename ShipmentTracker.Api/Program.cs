@@ -35,6 +35,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<ICarrierRepository, CarriersRepository>();
 
+// 注册服务总线发送器 AzureServiceBusSender
+builder.Services.AddSingleton<ServiceBusSender>();
 
 var app = builder.Build();
 
