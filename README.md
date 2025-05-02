@@ -7,13 +7,13 @@ Demostration Video Link: https://www.youtube.com/watch?v=8ZFBc8FuAGU
 
 ```text
 shipmenttracker/
-├── Core/                    # Domain - Entities, Interface
+├── Core/                    # Entities, Interface
 │   ├── Entities/
 │   └── Interfaces/
 ├── Infrastructure/          # Repositories, EF Core DbContext
 │   ├── Data/
 │   └── Repositories/
-├── ShipmentTracker.Api/     # Presentation - API Controller
+├── ShipmentTracker.Api/     # API Controller
 │   └── API/Controllers/           
 ├── Unit.Tests/              # Xunit
 ├── client/                  # NextJS + Typescript
