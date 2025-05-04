@@ -4,7 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { createShipment } from '@/services/shipmentService';
-import { ShipmentFormValues } from '../../types/shipment';
+import { ShipmentFormValues } from '@/types/shipment';
 
 const carriers = ['UPS', 'FedEx', 'USPS', 'DHL'];
 

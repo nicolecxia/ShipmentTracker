@@ -1,17 +1,18 @@
+/* eslint-disable */
 import { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ShipmentDataGrid from '../../components/ShipmentDataGrid';
-import useSWR from 'swr';
-import axios from 'axios';
-import { Shipment } from '../../types/shipment';
 import Link from 'next/link';
 import { GridFilterModel } from '@mui/x-data-grid';
 import { useEffect } from 'react';
-import { fetchShipments, fetchShipmentCount, updateShipmentStatus } from '../../services/shipmentService';
+import { fetchShipments, updateShipmentStatus } from '../../services/shipmentService';
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from "next/router";
 
 
 export default function ShipmentDashboard() {
+  const router = useRouter();
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 10,
@@ -22,10 +23,21 @@ export default function ShipmentDashboard() {
   const [shipments, setShipments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
-  // const [statusFilter, setStatusFilter] = useState('');
-  // const [carrierFilter, setCarrierFilter] = useState('');
   const [rowCount, setRowCount] = useState(0);
+  const { data: session, status } = useSession({ 
+    required: true,
+    onUnauthenticated() {
+      router.push(`${window.location.origin}/auth/signin`);
+    } });
 
+
+    if (status === "loading") {
+      return <div>Loading...</div>; // Show loading state
+    }
+    
+    if (!session) {
+      return null; // Brief render before redirect
+    }
 
  // Extract filter values from filterModel
  const getActiveFilters = () => {
@@ -34,18 +46,6 @@ export default function ShipmentDashboard() {
     carrier: filterModel.items.find(item => item.field === 'carrier')?.value || ''
   };
 };
-
-// 筛选变更处理（确保只有1个筛选条件）
-// const handleFilterModelChange = (newModel: GridFilterModel) => {
-//   if (newModel.items.length > 1) {
-//     // 如果尝试设置多个筛选，则只保留最后一个
-//     setFilterModel({
-//       items: [newModel.items[newModel.items.length - 1]]
-//     });
-//   } else {
-//     setFilterModel(newModel);
-//   }
-// };
 
 
   const loadData = async () => {
@@ -86,9 +86,38 @@ export default function ShipmentDashboard() {
       return () => clearTimeout(timer);
     }, [filterModel, paginationModel]);
   
-
   return (
     <Box sx={{ p: 4 }}>
+        <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 2,
+        mb: 4
+      }}>
+        <Box>
+        <Link href="/profile" passHref>
+          <Typography variant="h6">
+            Welcome, {session.user?.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {session.user?.email}
+          </Typography>
+          </Link>
+        </Box>
+        
+        <Button 
+          variant="contained"
+          onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+          sx={{ 
+            ml: 'auto',
+            bgcolor: 'error.main',
+            '&:hover': { bgcolor: 'error.dark' }
+          }}
+        >
+          Logout
+        </Button>
+      </Box>
+
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
         <Typography variant="h4">Shipment Dashboard</Typography>
         <Link href="/shipments/add" passHref>

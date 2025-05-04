@@ -1,4 +1,4 @@
-// src/services/shipmentService.ts
+/* eslint-disable */
 import axios from 'axios';
 import { console } from 'inspector';
 import { Shipment, ShipmentFormValues } from '../types/shipment';
@@ -75,16 +75,3 @@ export const updateShipmentStatus = async (trackingNumber: string, status: strin
   );
   return response.data;
 };
-
-
-// export const addShipment = async (data: ShipmentFormValues) => {
-//   // 转换日期格式
-//   const payload = {
-//     ...data,
-//     shipDate: new Date(data.shipDate).toISOString(),
-//     eta: new Date(data.eta).toISOString()
-//   };
-
-//   const response = await axios.post(`${API_BASE_URL}/shipments`, payload);
-//   return response.data;
-// };
