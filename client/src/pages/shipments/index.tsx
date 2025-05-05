@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { fetchShipments, updateShipmentStatus } from '../../services/shipmentService';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from "next/router";
+import ThemeToggle from '@/components/ThemeToggle';
 
 
 export default function ShipmentDashboard() {
@@ -95,6 +96,11 @@ export default function ShipmentDashboard() {
         mb: 4
       }}>
         <Box>
+        <img 
+          src={session.user?.image} 
+          alt={session.user?.name}
+          style={{ borderRadius: '50%', width: 50, height: 50 }}
+        />
         <Link href="/profile" passHref>
           <Typography variant="h6">
             Welcome, {session.user?.name}
@@ -116,6 +122,7 @@ export default function ShipmentDashboard() {
         >
           Logout
         </Button>
+        <ThemeToggle />
       </Box>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
