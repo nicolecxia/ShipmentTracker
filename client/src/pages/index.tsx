@@ -1,4 +1,5 @@
 /* eslint-disable */
+'use client';
 import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -7,6 +8,8 @@ import ShipmentDataGrid from "@/components/ShipmentDataGrid";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from 'next-auth/react';
+import ThemeToggle from "@/components/ThemeToggle";
+import { useThemeContext } from "@/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
