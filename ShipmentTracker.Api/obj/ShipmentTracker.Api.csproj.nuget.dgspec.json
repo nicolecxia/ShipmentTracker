@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj": {}
+    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/ShipmentTracker.Api/ShipmentTracker.Api.csproj": {}
   },
   "projects": {
-    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj": {
+    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Core/Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj",
+        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Core/Core.csproj",
         "projectName": "Core",
-        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj",
+        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Core/Core.csproj",
         "packagesPath": "/Users/nicolexia/.nuget/packages/",
-        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/obj/",
+        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/nicolexia/.nuget/NuGet/NuGet.Config"
@@ -69,14 +69,14 @@
         }
       }
     },
-    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj": {
+    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Infrastructure/Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj",
+        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Infrastructure/Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj",
+        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Infrastructure/Infrastructure.csproj",
         "packagesPath": "/Users/nicolexia/.nuget/packages/",
-        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/obj/",
+        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/nicolexia/.nuget/NuGet/NuGet.Config"
@@ -91,8 +91,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj": {
-                "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Core/Core.csproj"
+              "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Core/Core.csproj": {
+                "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Core/Core.csproj"
               }
             }
           }
@@ -142,14 +142,14 @@
         }
       }
     },
-    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj": {
+    "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/ShipmentTracker.Api/ShipmentTracker.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
+        "projectUniqueName": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
         "projectName": "ShipmentTracker.Api",
-        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
+        "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/ShipmentTracker.Api/ShipmentTracker.Api.csproj",
         "packagesPath": "/Users/nicolexia/.nuget/packages/",
-        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/ShipmentTracker.Api/obj/",
+        "outputPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/ShipmentTracker.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/nicolexia/.nuget/NuGet/NuGet.Config"
@@ -164,8 +164,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj": {
-                "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/ShipmentTrackerProject/Infrastructure/Infrastructure.csproj"
+              "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/nicolexia/Nicole'sDoc/Interview/Cedric Millar Integrated Solutions/Shipment/ShipmentTracker/Infrastructure/Infrastructure.csproj"
               }
             }
           }
@@ -186,6 +186,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Azure.Messaging.ServiceBus": {
+              "target": "Package",
+              "version": "[7.19.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.4, )"
