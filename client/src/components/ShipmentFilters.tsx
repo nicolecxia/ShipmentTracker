@@ -1,5 +1,6 @@
 import { TextField, MenuItem, Box } from '@mui/material';
 import { useId } from 'react';
+import { useTranslation } from 'next-i18next'
 
 const statusOptions = ['All', 'Pending', 'In Transit', 'Delivered', 'Cancelled'];
 const carrierOptions = ['All', 'UPS', 'FedEx', 'USPS', 'DHL'];
@@ -15,6 +16,7 @@ export default function ShipmentFilters({
   onStatusChange: (value: string) => void;
   onCarrierChange: (value: string) => void;
 }) {
+  const { t } = useTranslation('common')
 
   const statusId = useId();
   const carrierId = useId();
@@ -24,7 +26,7 @@ export default function ShipmentFilters({
       <TextField
         select
         key="status-selector" 
-        label="Status"
+        label={t('shipments.columns.status')}
         id={statusId}
         value={statusFilter}
         onChange={(e) => onStatusChange(e.target.value=== 'All' ? '' : e.target.value)}
@@ -45,7 +47,7 @@ export default function ShipmentFilters({
       <TextField
         select
         key="carrier-selector" 
-        label="Carrier"
+        label={t('shipments.columns.carrier')}
         id={carrierId}
         value={carrierFilter}
         onChange={(e) => onCarrierChange(e.target.value=== 'All' ? '' : e.target.value)}

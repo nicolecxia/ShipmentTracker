@@ -7,20 +7,11 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, MenuItem, Se
 import StatusBadge from './StatusBadge';
 import { statusColors } from './StatusBadge';
 
-const columns: GridColDef<Shipment>[] = [
-  { field: 'trackingNumber', headerName: 'Tracking #', width: 150 },
-  { field: 'origin', headerName: 'Origin', width: 150 },
-  { field: 'destination', headerName: 'Destination', width: 150 },
-  { field: 'carrier', headerName: 'Carrier', width: 150 },
-  { 
-    field: 'status', 
-    headerName: 'Status', 
-    width: 150,
-    renderCell: (params) => <StatusBadge status={params.value} />
-  },
-  { field: 'shipDate', headerName: 'Ship Date', width: 150 },
-  { field: 'eta', headerName: 'ETA', width: 150 },
-];
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nextConfig from "next-i18next.config";
+import { useTranslation } from 'next-i18next';
+
+import { useShipmentTranslations } from '@/hooks/useShipmentTranslations'
 
 interface ShipmentDataGridProps {
   shipments: Shipment[];
@@ -43,9 +34,24 @@ export default function ShipmentDataGrid({
   rowCount,
   onStatusUpdate,
 }: ShipmentDataGridProps) {
-  //  // State for independent filter controls
-  //  const [statusFilter, setStatusFilter] = useState('');
-  //  const [carrierFilter, setCarrierFilter] = useState('');
+
+    const t = useShipmentTranslations()
+    // console.log('Loaded translations:', JSON.stringify(t.columns,null,2));
+
+    const columns: GridColDef<Shipment>[] = [
+      { field: 'trackingNumber', headerName: t.columns.trackingNumber, width: 150 },
+      { field: 'origin', headerName: t.columns.origin, width: 150 },
+      { field: 'destination', headerName: t.columns.destination, width: 150 },
+      { field: 'carrier', headerName: t.columns.carrier, width: 150 },
+      { 
+        field: 'status', 
+        headerName: t.columns.status, 
+        width: 150,
+        renderCell: (params) => <StatusBadge status={params.value} />
+      },
+      { field: 'shipDate', headerName: t.columns.shipDate, width: 150 },
+      { field: 'eta', headerName: t.columns.eta, width: 150 },
+    ]
 
     // 独立的状态管理（与DataGrid解耦）
     const [activeFilter, setActiveFilter] = useState<{
@@ -124,12 +130,12 @@ export default function ShipmentDataGrid({
 
      {/* Status Update Modal */}
      <Dialog open={!!selectedShipment} onClose={handleClose}>
-        <DialogTitle>Update Shipment Status</DialogTitle>
+        <DialogTitle>{t.statusModal.title}</DialogTitle>
         <DialogContent>
           {selectedShipment && (
             <Box sx={{ mt: 2 }}>
-              <div><strong>Tracking #:</strong> {selectedShipment.trackingNumber}</div>
-              <div><strong>Current Status:</strong> <StatusBadge status={selectedShipment.status} /></div>
+              <div><strong>{t.statusModal.trackingNumber}:</strong> {selectedShipment.trackingNumber}</div>
+              <div><strong>{t.statusModal.currentStatus}:</strong> <StatusBadge status={selectedShipment.status} /></div>
               
               <Box sx={{ mt: 3 }}>
                 <Select
@@ -140,6 +146,7 @@ export default function ShipmentDataGrid({
                   {Object.keys(statusColors).map((status) => (
                     <MenuItem key={status} value={status}>
                       {status}
+                      {/* {t.statusOptions(status)} */}
                     </MenuItem>
                   ))}
                 </Select>
@@ -148,13 +155,13 @@ export default function ShipmentDataGrid({
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>{t.statusModal.cancel}</Button>
           <Button 
             onClick={handleStatusUpdate}
             disabled={isUpdating || !newStatus || newStatus === selectedShipment?.status}
             variant="contained"
           >
-            {isUpdating ? 'Updating...' : 'Update Status'}
+            {isUpdating ? t.statusModal.updating : t.statusModal.update}
           </Button>
         </DialogActions>
       </Dialog>
@@ -162,3 +169,4 @@ export default function ShipmentDataGrid({
     </div>
   );
 }
+

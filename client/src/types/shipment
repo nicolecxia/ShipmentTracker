@@ -5,7 +5,7 @@ export interface Shipment {
   origin: string;
   destination: string;
   carrier: 'UPS' | 'FedEx' | 'USPS' | 'DHL'; // Union type for specific values
-  status: 'Created' | 'In Transit' | 'Delivered' | 'Cancelled'; 
+  status: 'Pending' | 'In Transit' | 'Delivered' | 'Cancelled'; 
   shipDate: string;
   eta: string;
   createdAt?: string | Date;

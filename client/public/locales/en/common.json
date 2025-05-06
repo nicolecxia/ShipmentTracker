@@ -8,5 +8,31 @@
     "home": {
       "origin": "Origin"
     },
-    "test_key": "Test value"
+    "shipments": {
+        "columns": {
+          "trackingNumber": "Tracking #",
+          "origin": "Origin",
+          "destination": "Destination",
+          "carrier": "Carrier",
+          "status": "Status",
+          "shipDate": "Ship Date",
+          "eta": "ETA"
+        },
+        "statusModal": {
+          "title": "Update Shipment Status",
+          "trackingNumber": "Tracking #",
+          "currentStatus": "Current Status",
+          "cancel": "Cancel",
+          "update": "Update Status",
+          "updating": "Updating..."
+        },
+        "statusOptions": {
+          "Pending": "Pending",
+          "in_transit": "In Transit",
+          "out_for_delivery": "Out for Delivery",
+          "delivered": "Delivered",
+          "exception": "Exception"
+        },
+        "Estimated_Arrival_(ETA)": "Estimated Arrival (ETA)"
+      }
   }

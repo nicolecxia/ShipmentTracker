@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { createShipment } from '@/services/shipmentService';
 import { ShipmentFormValues } from '@/types/shipment';
+import { useTranslation } from 'next-i18next'
 
 const carriers = ['UPS', 'FedEx', 'USPS', 'DHL'];
 
@@ -12,7 +13,8 @@ export default function AddShipment() {
   const router = useRouter();
   const [formData, setFormData] = useState<ShipmentFormValues>({} as ShipmentFormValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
+  const { t, i18n } = useTranslation('common');
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -47,7 +49,7 @@ export default function AddShipment() {
       
       <form onSubmit={handleSubmit}>
         <TextField
-          label="Origin"
+          label={t('shipments.columns.origin')}
           fullWidth
           margin="normal"
           value={formData.origin}
@@ -57,7 +59,7 @@ export default function AddShipment() {
         />
         
         <TextField
-          label="Destination"
+          label={t('shipments.columns.destination')}
           fullWidth
           margin="normal"
           value={formData.destination}
@@ -68,7 +70,7 @@ export default function AddShipment() {
         
         <TextField
           select
-          label="Carrier"
+          label={t('shipments.columns.carrier')}
           fullWidth
           margin="normal"
           value={formData.carrier}
@@ -84,14 +86,14 @@ export default function AddShipment() {
         </TextField>
         
         <DatePicker
-          label="Ship Date"
+          label={t('shipments.columns.shipDate')}
           value={formData.shipDate}
           onChange={(newValue) => setFormData({...formData, shipDate: newValue.toISOString().split('T')[0]})}
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
         />
         
         <DatePicker
-          label="Estimated Arrival (ETA)"
+          label={t('shipments.Estimated_Arrival_(ETA)')}
           value={formData.eta}
           onChange={(newValue) => setFormData({...formData, eta: newValue.toISOString().split('T')[0]})}
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}

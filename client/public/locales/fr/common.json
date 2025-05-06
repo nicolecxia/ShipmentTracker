@@ -8,5 +8,31 @@
   "addpage": {
     "origin": "Origine"
   },
-  "test_key": "Test value"
+  "shipments": {
+    "columns": {
+    "trackingNumber": "Numéro de suivi",
+    "origin": "Origine",
+    "destination": "Destination",
+    "carrier": "Transporteur",
+    "status": "Statut",
+    "shipDate": "Date d'expédition",
+    "eta": "ETA"
+    },
+    "statusModal": {
+    "title": "Mettre à jour le statut de l'expédition",
+    "trackingNumber": "Numéro de suivi",
+    "currentStatus": "Statut actuel",
+    "cancel": "Annuler",
+    "update": "Mettre à jour le statut",
+    "updating": "Mise à jour..."
+    },
+    "statusOptions": {
+    "pending": "En attente",
+    "in_transit": "En transit",
+    "out_for_delivery": "En livraison",
+    "delivered": "Livré",
+    "exception": "Exception"
+    },
+    "Estimated_Arrival_(ETA)": "Date d'arrivée estimée (ETA)"
+  } 
 }
