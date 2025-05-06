@@ -1,0 +1,12 @@
+{
+    "dashboard": {
+        "title": "Shipment Dashboard",
+        "welcome": "Welcome",
+        "logout": "Logout",
+        "addShipment": "Add Shipment"
+      },
+    "home": {
+      "origin": "Origin"
+    },
+    "test_key": "Test value"
+  }

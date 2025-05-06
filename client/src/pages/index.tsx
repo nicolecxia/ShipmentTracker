@@ -11,6 +11,13 @@ import { useSession } from 'next-auth/react';
 import ThemeToggle from "@/components/ThemeToggle";
 import { useThemeContext } from "@/context/ThemeContext";
 
+import { useTranslation } from 'next-i18next';
+import { makeStaticProps } from '@/utils/i18n';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nextConfig from "next-i18next.config";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -21,7 +28,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Home() {
+function Home() {
+  // const { t, i18n } = useTranslation('common');
+  
+  // console.log('Current language:', i18n.language);
+  // console.log('Loaded translations:', JSON.stringify(i18n.store.data[i18n.language]?.common,null,2));
+
+  // return (
+  //   <div>
+  //       <LanguageSwitcher />
+  //     <h1>{t('header.title')}</h1>
+  //     <p>Simple test: {t('test_key')}</p>
+  //   </div>
+  // );
+
   const { data: session, status } = useSession({ 
     required: true,
     onUnauthenticated() {
@@ -36,3 +56,14 @@ export default function Home() {
   return null;
 
 }
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+    },
+  }
+}
+
+
+export default Home

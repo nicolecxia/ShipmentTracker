@@ -5,9 +5,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { SessionProvider } from "next-auth/react";
 import { ThemeContextProvider } from "@/context/ThemeContext";
+import { appWithTranslation } from "next-i18next";
+import nextI18nextConfig from "next-i18next.config";
 
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (    
     
     <ThemeContextProvider>
@@ -21,3 +23,5 @@ export default function App({ Component, pageProps }: AppProps) {
     
 );
 }
+
+export default appWithTranslation(App, nextI18nextConfig);

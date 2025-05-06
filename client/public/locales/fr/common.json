@@ -1,0 +1,12 @@
+{
+  "dashboard": {
+    "title": "Tableau de bord des expéditions",
+     "welcome": "Bienvenue",
+     "logout": "Déconnexion",
+     "addShipment": "Ajouter une expédition"
+  },
+  "addpage": {
+    "origin": "Origine"
+  },
+  "test_key": "Test value"
+}

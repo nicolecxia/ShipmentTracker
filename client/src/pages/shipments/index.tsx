@@ -11,8 +11,14 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from "next/router";
 import ThemeToggle from '@/components/ThemeToggle';
 
+import { useTranslation } from 'next-i18next';
+import { makeStaticProps } from '@/utils/i18n';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
-export default function ShipmentDashboard() {
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nextConfig from "next-i18next.config";
+
+function ShipmentDashboard() {
   const router = useRouter();
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
@@ -31,6 +37,11 @@ export default function ShipmentDashboard() {
       router.push(`${window.location.origin}/auth/signin`);
     } });
 
+    const { t, i18n } = useTranslation('common');
+  
+    // console.log('Current language:', i18n.language);
+    // console.log('Loaded translations:', JSON.stringify(i18n.store.data[i18n.language]?.common,null,2));
+  
 
     if (status === "loading") {
       return <div>Loading...</div>; // Show loading state
@@ -89,6 +100,7 @@ export default function ShipmentDashboard() {
   
   return (
     <Box sx={{ p: 4 }}>
+
         <Box sx={{ 
         display: 'flex', 
         alignItems: 'center', 
@@ -103,7 +115,7 @@ export default function ShipmentDashboard() {
         />
         <Link href="/profile" passHref>
           <Typography variant="h6">
-            Welcome, {session.user?.name}
+          {t('dashboard.welcome')}, {session.user?.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {session.user?.email}
@@ -120,16 +132,17 @@ export default function ShipmentDashboard() {
             '&:hover': { bgcolor: 'error.dark' }
           }}
         >
-          Logout
+          {t('dashboard.logout')}
         </Button>
         <ThemeToggle />
+        <LanguageSwitcher />
       </Box>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
-        <Typography variant="h4">Shipment Dashboard</Typography>
+        <Typography variant="h4">{t('dashboard.title')}</Typography>
         <Link href="/shipments/add" passHref>
           <Button variant="contained" startIcon={<AddIcon />}>
-            Add Shipment
+           {t('dashboard.addShipment')}
           </Button>
         </Link>
       </Box>
@@ -150,3 +163,14 @@ export default function ShipmentDashboard() {
     </Box>
   );
 }
+
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+    },
+  }
+}
+
+export default ShipmentDashboard;
