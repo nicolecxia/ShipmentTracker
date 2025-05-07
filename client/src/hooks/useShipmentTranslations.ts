@@ -14,7 +14,8 @@ export const useShipmentTranslations = () => {
     carrier: 'Carrier',
     status: 'Status',
     shipDate: 'Ship Date',
-    eta: 'ETA'
+    eta: 'ETA',
+    image: 'Image'
   },
   statusModal: {
     title: 'Shipment Status',
@@ -46,7 +47,8 @@ export const useShipmentTranslations = () => {
       carrier: t('shipments.columns.carrier'),
       status: t('shipments.columns.status'),
       shipDate: t('shipments.columns.shipDate'),
-      eta: t('shipments.columns.eta')
+      eta: t('shipments.columns.eta'),
+      image: t('shipments.columns.image')
     },
     statusModal: {
       title: t('shipments.statusModal.title'),

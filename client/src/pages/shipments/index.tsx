@@ -149,6 +149,7 @@ function ShipmentDashboard() {
       
       <ShipmentDataGrid
         shipments={shipments?.shipments || []}
+        imageUrl={shipments?.imageUrl || ''}
         loading={loading}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}

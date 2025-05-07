@@ -16,7 +16,8 @@
     "carrier": "Transporteur",
     "status": "Statut",
     "shipDate": "Date d'expédition",
-    "eta": "ETA"
+    "eta": "ETA",
+    "image": "Image"
     },
     "statusModal": {
     "title": "Mettre à jour le statut de l'expédition",

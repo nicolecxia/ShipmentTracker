@@ -12,4 +12,5 @@ public class Shipment
     public string? ETA { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
+    public Guid? ImageId { get; set; }  // Foreign key to image
 }

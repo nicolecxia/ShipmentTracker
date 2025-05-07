@@ -7,6 +7,8 @@ public class AppDbContext : DbContext
 {
     public DbSet<Shipment> Shipments { get; set; }
     public DbSet<Carrier> Carriers { get; set; } // 单独承运商表
+
+    public DbSet<ImageMetadata> Images { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -25,6 +27,16 @@ public class AppDbContext : DbContext
             entity.HasIndex(c => c.Name).IsUnique();
             entity.Property(c => c.Name).HasMaxLength(50);
         });
+
+        modelBuilder.Entity<ImageMetadata>(entity =>
+        {
+            entity.HasIndex(i => i.OriginalFileName);
+            entity.Property(i => i.ContentType).HasMaxLength(50);
+            entity.Property(i => i.FilePath).HasMaxLength(200);
+            entity.Property(i => i.ThumbnailPath).HasMaxLength(200);
+        });
+
+
      
         SeedData(modelBuilder);
     }
@@ -50,6 +62,7 @@ public class AppDbContext : DbContext
                 Status = "In Transit",
                 ShipDate = DateTime.UtcNow.AddDays(-2).ToString("yyyy-MM-dd"),
                 ETA = DateTime.UtcNow.AddDays(3).ToString("yyyy-MM-dd"),
+                ImageId = Guid.Parse("4b9376e8-2cdc-4d8f-b9ef-bc3543a9844b") // Example ImageId
             },
             new Shipment
             {
@@ -108,5 +121,25 @@ public class AppDbContext : DbContext
             }
             
          );
+
+          modelBuilder.Entity<ImageMetadata>().HasData(
+             new ImageMetadata
+                    {
+                        Id = Guid.Parse("a1b2c3d4-1234-5678-9101-112131415161"),
+                        OriginalFileName = "sunset.jpg",
+                        StoredFileName = "sunset_a1b2c3d4.jpg",
+                        ContentType = "image/jpeg",
+                        FileSize = 1024 * 1024 * 2, // 2MB
+                        Width = 1920,
+                        Height = 1080,
+                        Title = "Beautiful Sunset",
+                        Description = "Sunset at Malibu Beach",
+                        FilePath = "/uploads/sunset_a1b2c3d4.jpg",
+                        ThumbnailPath = "/uploads/thumbnails/sunset_a1b2c3d4.jpg",
+                        UploadDate = DateTime.UtcNow.AddDays(-7)
+                    }
+        );
+
+      
     }
 }

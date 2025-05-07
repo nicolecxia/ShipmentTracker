@@ -6,6 +6,7 @@ import axios from 'axios';
 import { createShipment } from '@/services/shipmentService';
 import { ShipmentFormValues } from '@/types/shipment';
 import { useTranslation } from 'next-i18next'
+import ImageUploader from '@/components/ImageUploader';
 
 const carriers = ['UPS', 'FedEx', 'USPS', 'DHL'];
 
@@ -98,6 +99,8 @@ export default function AddShipment() {
           onChange={(newValue) => setFormData({...formData, eta: newValue.toISOString().split('T')[0]})}
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
         />
+
+        <ImageUploader />
         
         <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="outlined" sx={{ mr: 2 }} onClick={() => router.push('/shipments')}>

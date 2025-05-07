@@ -1,17 +1,21 @@
 /* eslint-disable */
-import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel,GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel,GridActionsCellItem,GridRenderCellParams } from '@mui/x-data-grid';
 import { Shipment, ShipmentStatus } from '@/types/shipment';
 import ShipmentFilters from "@/components/ShipmentFilters";
 import { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, MenuItem, Select, Box } from '@mui/material';
 import StatusBadge from './StatusBadge';
 import { statusColors } from './StatusBadge';
+import Image from 'next/image';
+import ImageIcon from '@mui/icons-material/Image';
+import IconButton from '@mui/material/IconButton';
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nextConfig from "next-i18next.config";
 import { useTranslation } from 'next-i18next';
 
-import { useShipmentTranslations } from '@/hooks/useShipmentTranslations'
+import { useShipmentTranslations } from '@/hooks/useShipmentTranslations';
+import ImagePreviewModal from './ImagePreviewModal';
 
 interface ShipmentDataGridProps {
   shipments: Shipment[];
@@ -36,7 +40,10 @@ export default function ShipmentDataGrid({
 }: ShipmentDataGridProps) {
 
     const t = useShipmentTranslations()
-    // console.log('Loaded translations:', JSON.stringify(t.columns,null,2));
+
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [modalOpen, setModalOpen] = useState(false);
+    // console.log('imageUrl:',imageUrl);
 
     const columns: GridColDef<Shipment>[] = [
       { field: 'trackingNumber', headerName: t.columns.trackingNumber, width: 150 },
@@ -48,6 +55,26 @@ export default function ShipmentDataGrid({
         headerName: t.columns.status, 
         width: 150,
         renderCell: (params) => <StatusBadge status={params.value} />
+      },
+      { 
+        field: 'imageId', 
+        headerName: t.columns.image,
+        width: 100,
+        renderCell: (params: GridRenderCellParams) => (
+          params.value ? (
+            <IconButton 
+              onClick={() => {
+                setPreviewImage(`/api/images/${params.value}`);
+                setModalOpen(true);
+              }}
+              size="small"
+            >
+              <ImageIcon color="primary" />
+            </IconButton>
+          ) : null
+        ),
+        sortable: false,
+        filterable: false
       },
       { field: 'shipDate', headerName: t.columns.shipDate, width: 150 },
       { field: 'eta', headerName: t.columns.eta, width: 150 },
@@ -127,6 +154,12 @@ export default function ShipmentDataGrid({
       disableRowSelectionOnClick
       onRowDoubleClick={handleRowDoubleClick}
     />
+
+     <ImagePreviewModal
+        open={modalOpen}
+        imageUrl={previewImage}
+        onClose={() => setModalOpen(false)}
+      />
 
      {/* Status Update Modal */}
      <Dialog open={!!selectedShipment} onClose={handleClose}>

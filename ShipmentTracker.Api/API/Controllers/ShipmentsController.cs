@@ -78,13 +78,20 @@ public class ShipmentsController : ControllerBase
             return Ok(shipments);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Shipment>> GetShipmentsByIDAsync(int id)
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<Shipment>> GetShipmentsByIDAsync(int id)
+        // {
+        //     var shipment = await _repository.GetShipmentsByIDAsync(id);
+        //     if (shipment == null)
+        //         return NotFound();
+
+        //     return Ok(shipment);
+        // }
+
+        [HttpGet("{trackingNumber}")]
+        public async Task<ActionResult<Shipment>> GetShipmentsByTrackerNumberAsync(string trackingNumber)
         {
-            var shipment = await _repository.GetShipmentsByIDAsync(id);
-            if (shipment == null)
-                return NotFound();
-        
+            var shipment = await _repository.GetShipmentsByTrackerNumberAsync(trackingNumber);
             if (shipment == null)
                 return NotFound();
 
@@ -93,21 +100,27 @@ public class ShipmentsController : ControllerBase
 
 
       [HttpPut("{trackingNumber}/status")]
-        public async Task<IActionResult> UpdateStatus(string trackingNumber, [FromBody] StatusUpdateDto dto, [FromServices] ServiceBusSender busSender)
+        public async Task<IActionResult> UpdateStatus(string trackingNumber, [FromBody] StatusUpdateDto dto)
         {
-            //   initial logic 
-            // var success = await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
-            // if (!success)
-            //     return NotFound();
+            var success = await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
+            if (!success)
+                return NotFound();
 
-        // Upgrade to use ServiceBusSender
-        await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
-    
-        // Service Bus send the event
-         await busSender.SendStatusUpdateEvent(trackingNumber, dto.Status);
-
-         return NoContent(); // 204 No Content
+            return NoContent(); // 204 No Content
         }
+
+        /* Service Bus logic
+        [HttpPut("{trackingNumber}/status")]
+         public async Task<IActionResult> UpdateStatus(string trackingNumber, [FromBody] StatusUpdateDto dto, [FromServices] ServiceBusSender busSender)
+        {
+            // Upgrade to use ServiceBusSender
+            await _repository.UpdateShipmentStatusAsync(trackingNumber, dto.Status);
+        
+            // Service Bus send the event
+            await busSender.SendStatusUpdateEvent(trackingNumber, dto.Status);
+
+            return NoContent(); // 204 No Content
+        }*/
 
         public class StatusUpdateDto
         {

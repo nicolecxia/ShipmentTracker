@@ -7,6 +7,17 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   i18n,
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '5251',
+        pathname: '/api/images/**',
+      },
+    ],
+  },
   
   webpack: (config, { isServer }) => {
     config.resolve.alias = {

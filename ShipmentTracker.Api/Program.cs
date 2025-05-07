@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 using Core.Mappings;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,9 +40,19 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 // 注册Repository, 特定仓储,这是框架原生支持接口注入
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<ICarrierRepository, CarriersRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 // 注册服务总线发送器 AzureServiceBusSender
 builder.Services.AddSingleton<ServiceBusSender>();
+
+// Configure file upload limits
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10MB
+});
+
 
 var app = builder.Build();
 
@@ -57,6 +70,19 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors("AllowAllOrigins");
+
+// Make sure to enable static file serving
+// Create uploads directory if needed
+var uploadsDir = Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "uploads");
+if (!Directory.Exists(uploadsDir))
+{
+    Directory.CreateDirectory(uploadsDir);
+}
+app.UseStaticFiles(new StaticFileOptions
+{
+     FileProvider = new PhysicalFileProvider(uploadsDir),
+     RequestPath = "/uploads"
+});
 
 // Seed the database
 using (var scope = app.Services.CreateScope())

@@ -9,5 +9,6 @@ public interface IShipmentRepository : IRepository<Shipment>
        Task<Shipment> AddShipmentAsync(Shipment shipment);
        Task<bool> UpdateShipmentStatusAsync(string trackingNumber, string status);
        Task<IEnumerable<Shipment>> GetShipmentsByIDAsync(int id);
+       Task<IEnumerable<Shipment>> GetShipmentsByTrackerNumberAsync(string trackingNumber);
     
 }

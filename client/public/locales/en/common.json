@@ -16,7 +16,8 @@
           "carrier": "Carrier",
           "status": "Status",
           "shipDate": "Ship Date",
-          "eta": "ETA"
+          "eta": "ETA",
+          "image": "Image"
         },
         "statusModal": {
           "title": "Update Shipment Status",

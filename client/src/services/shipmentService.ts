@@ -32,6 +32,7 @@ export const fetchShipments = async (params: {
     destination: item.destination || '',
     carrier: item.carrier || '',
     status: item.status || 'Created',
+    imageId: '5b8978c3-26a5-4ec9-a99b-f9a1d40beddc' //add imageId
   }));
 
   return {

@@ -26,6 +26,15 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
         }
        
+          public async Task<IEnumerable<Shipment>> GetShipmentsByTrackerNumberAsync(string trackingNumber)
+        {
+           var query = _context.Shipments.AsQueryable();
+
+            if (!string.IsNullOrEmpty(trackingNumber))
+                query = query.Where(s => s.TrackingNumber == trackingNumber);
+
+            return await query.ToListAsync();
+        }
 
         // public async Task<IEnumerable<Shipment>> GetShipmentsByStatusAsync(string status)
         // {
@@ -56,7 +65,7 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
 
             return (items, totalCount);
-                }
+          }
 
         public async Task<Shipment> AddShipmentAsync(Shipment shipment)
         {
