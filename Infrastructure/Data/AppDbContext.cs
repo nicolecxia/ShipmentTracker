@@ -62,7 +62,7 @@ public class AppDbContext : DbContext
                 Status = "In Transit",
                 ShipDate = DateTime.UtcNow.AddDays(-2).ToString("yyyy-MM-dd"),
                 ETA = DateTime.UtcNow.AddDays(3).ToString("yyyy-MM-dd"),
-                ImageId = Guid.Parse("4b9376e8-2cdc-4d8f-b9ef-bc3543a9844b") // Example ImageId
+                ImageId = null 
             },
             new Shipment
             {
@@ -122,23 +122,23 @@ public class AppDbContext : DbContext
             
          );
 
-          modelBuilder.Entity<ImageMetadata>().HasData(
-             new ImageMetadata
-                    {
-                        Id = Guid.Parse("a1b2c3d4-1234-5678-9101-112131415161"),
-                        OriginalFileName = "sunset.jpg",
-                        StoredFileName = "sunset_a1b2c3d4.jpg",
-                        ContentType = "image/jpeg",
-                        FileSize = 1024 * 1024 * 2, // 2MB
-                        Width = 1920,
-                        Height = 1080,
-                        Title = "Beautiful Sunset",
-                        Description = "Sunset at Malibu Beach",
-                        FilePath = "/uploads/sunset_a1b2c3d4.jpg",
-                        ThumbnailPath = "/uploads/thumbnails/sunset_a1b2c3d4.jpg",
-                        UploadDate = DateTime.UtcNow.AddDays(-7)
-                    }
-        );
+        //   modelBuilder.Entity<ImageMetadata>().HasData(
+        //      new ImageMetadata
+        //             {
+        //                 Id = Guid.Parse("7c9ace0c-b604-485a-8a42-f364aea11ee5"),
+        //                 OriginalFileName = "sunset.jpg",
+        //                 StoredFileName = "sunset_a1b2c3d4.jpg",
+        //                 ContentType = "image/jpeg",
+        //                 FileSize = 1024 * 1024 * 2, // 2MB
+        //                 Width = 1920,
+        //                 Height = 1080,
+        //                 Title = "Beautiful Sunset",
+        //                 Description = "Sunset at Malibu Beach",
+        //                 FilePath = "/uploads/sunset_a1b2c3d4.jpg",
+        //                 ThumbnailPath = "/uploads/thumbnails/sunset_a1b2c3d4.jpg",
+        //                 UploadDate = DateTime.UtcNow.AddDays(-7)
+        //             }
+        // );
 
       
     }

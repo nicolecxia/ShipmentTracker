@@ -34,6 +34,7 @@ namespace Infrastructure.Repositories
                 query = query.Where(s => s.TrackingNumber == trackingNumber);
 
             return await query.ToListAsync();
+
         }
 
         // public async Task<IEnumerable<Shipment>> GetShipmentsByStatusAsync(string status)

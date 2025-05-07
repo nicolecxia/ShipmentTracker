@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { Box, Button, TextField, Typography, MenuItem } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/router';
@@ -7,8 +7,8 @@ import { createShipment } from '@/services/shipmentService';
 import { ShipmentFormValues } from '@/types/shipment';
 import { useTranslation } from 'next-i18next'
 import ImageUploader from '@/components/ImageUploader';
-
-const carriers = ['UPS', 'FedEx', 'USPS', 'DHL'];
+import { useEffect } from 'react';
+import { useAppSelector } from '@/redux/store';
 
 export default function AddShipment() {
   const router = useRouter();
@@ -16,6 +16,23 @@ export default function AddShipment() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { t, i18n } = useTranslation('common');
   
+  // Fetch Carriers data from Redux store
+  const carriersRaw = useAppSelector((state:any) => state.carriers.data);
+  const carriers: string[] = carriersRaw.map((carrier:any) => carrier.name);
+
+  //For image id
+  const [imageId, setImageId] = useState('');
+    // Callback function to receive imageId from child
+    const handleImageUpload = (uploadedImageId:string) => {
+      console.log('Received image ID:', uploadedImageId);
+      setImageId(uploadedImageId);
+    }; 
+
+    useEffect(() => {
+      // Update formData with imageId when it changes
+      setFormData((prevData) => ({ ...prevData, imageId }));
+    }, [imageId]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -100,7 +117,7 @@ export default function AddShipment() {
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
         />
 
-        <ImageUploader />
+        <ImageUploader onUploadComplete={handleImageUpload} />
         
         <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="outlined" sx={{ mr: 2 }} onClick={() => router.push('/shipments')}>

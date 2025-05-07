@@ -8,15 +8,20 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "select_account" // 👈 This forces account selection
+        }
+      }
     }),
   ],
 
-  // Optional: Add custom pages
+  // Add custom pages
   pages: {
     signIn: '/auth/signin',
   },
 
-  // Optional: Customize the JWT or session
+  //Customize the JWT or session
   session: {
     jwt: true,
   },

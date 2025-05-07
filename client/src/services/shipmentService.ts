@@ -1,7 +1,6 @@
 /* eslint-disable */
 import axios from 'axios';
-import { console } from 'inspector';
-import { Shipment, ShipmentFormValues } from '../types/shipment';
+import { Shipment, ShipmentFormValues } from '../types/shipment.ts';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -32,7 +31,7 @@ export const fetchShipments = async (params: {
     destination: item.destination || '',
     carrier: item.carrier || '',
     status: item.status || 'Created',
-    imageId: '5b8978c3-26a5-4ec9-a99b-f9a1d40beddc' //add imageId
+    imageId: item.imageId || null //add imageId
   }));
 
   return {

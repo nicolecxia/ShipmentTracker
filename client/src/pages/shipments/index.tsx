@@ -6,17 +6,18 @@ import ShipmentDataGrid from '../../components/ShipmentDataGrid';
 import Link from 'next/link';
 import { GridFilterModel } from '@mui/x-data-grid';
 import { useEffect } from 'react';
-import { fetchShipments, updateShipmentStatus } from '../../services/shipmentService';
+import { fetchCarriers } from '@/services/carrierService';
+import { fetchShipments, updateShipmentStatus } from '@/services/shipmentService';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from "next/router";
 import ThemeToggle from '@/components/ThemeToggle';
-
 import { useTranslation } from 'next-i18next';
 import { makeStaticProps } from '@/utils/i18n';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nextConfig from "next-i18next.config";
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { setCarriers } from '@/redux/carriersSlice';
 
 function ShipmentDashboard() {
   const router = useRouter();
@@ -31,39 +32,47 @@ function ShipmentDashboard() {
   const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [rowCount, setRowCount] = useState(0);
+  const { t, i18n } = useTranslation('common');
+
+  const dispatch = useAppDispatch();
+
+
   const { data: session, status } = useSession({ 
     required: true,
     onUnauthenticated() {
       router.push(`${window.location.origin}/auth/signin`);
     } });
-
-    const { t, i18n } = useTranslation('common');
-  
-    // console.log('Current language:', i18n.language);
-    // console.log('Loaded translations:', JSON.stringify(i18n.store.data[i18n.language]?.common,null,2));
-  
-
     if (status === "loading") {
       return <div>Loading...</div>; // Show loading state
     }
-    
     if (!session) {
       return null; // Brief render before redirect
     }
 
- // Extract filter values from filterModel
- const getActiveFilters = () => {
-  return {
-    status: filterModel.items.find(item => item.field === 'status')?.value || '',
-    carrier: filterModel.items.find(item => item.field === 'carrier')?.value || ''
-  };
-};
+     // Fetch Carriers data
+    useEffect(() => {
+      const fetchCarriersData = async () => {  
+        const response = await fetchCarriers(); 
+        console.log('Carriers response:', response);
+        dispatch(setCarriers(response));
+      };
+
+      fetchCarriersData();
+    }, []);
+
+
+    // Extract filter values from filterModel
+    const getActiveFilters = () => {
+      return {
+        status: filterModel.items.find(item => item.field === 'status')?.value || '',
+        carrier: filterModel.items.find(item => item.field === 'carrier')?.value || ''
+      };
+    };
 
 
   const loadData = async () => {
     setLoading(true);
     try{
-  
       const activeFilters = getActiveFilters();
       const data = await fetchShipments({
         page: paginationModel.page + 1,

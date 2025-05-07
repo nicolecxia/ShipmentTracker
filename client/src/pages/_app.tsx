@@ -7,11 +7,13 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import { appWithTranslation } from "next-i18next";
 import nextI18nextConfig from "next-i18next.config";
+import { Provider } from 'react-redux';
+import { store } from '@/redux/store';
 
 
 function App({ Component, pageProps }: AppProps) {
   return (    
-    
+    <Provider store={store}>
     <ThemeContextProvider>
     < SessionProvider session={pageProps.session}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -20,7 +22,7 @@ function App({ Component, pageProps }: AppProps) {
     </LocalizationProvider>
     </SessionProvider>
     </ThemeContextProvider>
-    
+    </Provider>
 );
 }
 

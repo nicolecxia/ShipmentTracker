@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { Button,TextField, Box, CircularProgress, Typography, Paper } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import ImageIcon from '@mui/icons-material/Image';
-import {ImageUploadResponse} from '../types/imageTypes';
+import {ImageUploadResponse} from '@/types/imageupload';
 import { uploadImage } from '../services/imageService';
+import { useEffect } from 'react';
 
-const ImageUploader = () => {
+
+const ImageUploader = ({
+    onUploadComplete,
+}:{
+    onUploadComplete: (value: string) => void;
+}) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -55,6 +61,10 @@ const ImageUploader = () => {
         Description: description
       });
       setUploadResult(result);
+
+      onUploadComplete(result.imageId); // Callback to parent component
+      console.log('uploadResult:', uploadResult);
+
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Upload failed');
     } finally {

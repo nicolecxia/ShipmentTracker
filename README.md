@@ -1,7 +1,7 @@
 # ShipmentTracker
 
-A simplified Shipment Tracker application build using `Next.js + TypeScript + Material UI` on the frontend, and `ASP.NET Core Web API + Entity Framework Core` on the backend. <br>
-Demostration Video Link: https://www.youtube.com/watch?v=8ZFBc8FuAGU
+A simplified Shipment Tracker application that supports Google OAuth, theming, and bilingual support (English & French). It's built with `Next.js, TypeScript, Material UI` on the frontend, and `ASP.NET Core Web API, Entity Framework Core` on the backend. <br>
+Demostration Video Link: https://www.youtube.com/watch?v=qftXqzclE1o
 
 ---
 

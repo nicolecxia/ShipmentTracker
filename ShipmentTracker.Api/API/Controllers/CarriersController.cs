@@ -1,4 +1,5 @@
 using Core.Entities;
+using Core.DTOs;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,7 @@ public class CarriersController : ControllerBase
 
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Carrier>>> GetCarriers()
+    public async Task<ActionResult<IEnumerable<CarrierResponseDto>>> GetCarriers()
     {
         try
         {

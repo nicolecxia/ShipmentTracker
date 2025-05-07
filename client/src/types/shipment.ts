@@ -28,6 +28,7 @@ export interface ShipmentFormValues {
   carrier: string;
   shipDate: string;
   eta: string;
+  imageId?: string;
 }
 
 export enum ShipmentStatus {

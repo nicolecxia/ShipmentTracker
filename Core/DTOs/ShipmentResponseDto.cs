@@ -11,6 +11,7 @@ public class ShipmentResponseDto
     public string? ShipDate { get; set; }
     public string? ETA { get; set; }
     public DateTime CreatedAt { get; set; }
+    public Guid? ImageId { get; set; }   
 }
 
 

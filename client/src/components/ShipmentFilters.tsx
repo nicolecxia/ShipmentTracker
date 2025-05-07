@@ -1,9 +1,9 @@
 import { TextField, MenuItem, Box } from '@mui/material';
 import { useId } from 'react';
 import { useTranslation } from 'next-i18next'
+import { useAppSelector } from '@/redux/store';
 
 const statusOptions = ['All', 'Pending', 'In Transit', 'Delivered', 'Cancelled'];
-const carrierOptions = ['All', 'UPS', 'FedEx', 'USPS', 'DHL'];
 
 export default function ShipmentFilters({
   statusFilter,
@@ -20,6 +20,10 @@ export default function ShipmentFilters({
 
   const statusId = useId();
   const carrierId = useId();
+
+    // Fetch Carriers data from Redux store
+    const carriersRaw = useAppSelector((state:any) => state.carriers.data);
+    const carrierOptions: string[] = ['All', ...carriersRaw.map((carrier:any) => carrier.name)];
 
   return (
     <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>

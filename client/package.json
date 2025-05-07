@@ -21,6 +21,7 @@
     "@mui/material-nextjs": "^7.0.2",
     "@mui/x-data-grid": "^8.1.0",
     "@mui/x-date-pickers": "^8.1.0",
+    "@reduxjs/toolkit": "^2.8.0",
     "axios": "^1.9.0",
     "dayjs": "^1.11.13",
     "i18next": "^25.0.2",
@@ -30,6 +31,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.5.1",
+    "react-redux": "^9.2.0",
     "swr": "^2.3.3"
   },
   "devDependencies": {
