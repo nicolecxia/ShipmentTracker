@@ -96,9 +96,19 @@ npm run dev
 ### Integration Choices
 - Axios
 
+---
 
+## API endpoints  
+- GET /api/shipments – List all shipments contains ImageId (with filter by status, carrier)
 
+- POST /api/shipments – Add new shipment
 
+- PUT /api/shipments/{id}/status – Update shipment status
 
+- GET /api/carriers – List of available carriers
+
+- POST /api/images/upload - Upload image
+
+- GET /api/images/{id} - Get image by id
 
   
