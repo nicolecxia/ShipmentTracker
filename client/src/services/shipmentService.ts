@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from 'axios';
-import { Shipment, ShipmentFormValues } from '../types/shipment.ts';
+import { Shipment, ShipmentFormValues } from '@/types/shipment';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 

@@ -17,6 +17,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nextConfig from "next-i18next.config";
+import { GetStaticProps } from "next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,13 +58,22 @@ function Home() {
 
 }
 
-export async function getStaticProps({ locale }) {
+// export async function getStaticProps({locale}) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+//     },
+//   }
+// }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+      ...(await serverSideTranslations(locale ?? 'en', ['common'], nextI18nextConfig)),
+      // Add nullish coalescing for locale
     },
-  }
-}
+  };
+};
 
 
 export default Home

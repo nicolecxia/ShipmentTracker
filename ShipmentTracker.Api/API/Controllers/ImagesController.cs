@@ -96,6 +96,7 @@ public class ImagesController : ControllerBase
             return NotFound();
         }
         
+        // 返回image文件格式
           var fileBytes = System.IO.File.ReadAllBytes(image.FilePath);
           return File(fileBytes, image.ContentType);
         }

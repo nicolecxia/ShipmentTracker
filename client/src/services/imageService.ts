@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ImageUploadDto, ImageUploadResponse } from '../types/imageTypes';
+import { ImageUploadDto, ImageUploadResponse } from '@/types/imageupload';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 

@@ -105,15 +105,15 @@ export default function AddShipment() {
         
         <DatePicker
           label={t('shipments.columns.shipDate')}
-          value={formData.shipDate}
-          onChange={(newValue) => setFormData({...formData, shipDate: newValue.toISOString().split('T')[0]})}
+          //  value = null
+          onChange={(newValue) => setFormData({...formData, shipDate: newValue? newValue.toISOString().split('T')[0]:''})}
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
         />
         
         <DatePicker
           label={t('shipments.Estimated_Arrival_(ETA)')}
-          value={formData.eta}
-          onChange={(newValue) => setFormData({...formData, eta: newValue.toISOString().split('T')[0]})}
+          // value={formData.eta}
+          onChange={(newValue) => setFormData({...formData, eta: newValue? newValue.toISOString().split('T')[0]:''})}
           slotProps={{ textField: { fullWidth: true, margin: 'normal' } }}
         />
 

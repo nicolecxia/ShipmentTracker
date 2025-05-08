@@ -1,10 +1,10 @@
 import path from 'path'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { i18n as i18nConfig } from '../../next-i18next.config';
+import  nextI18nextConfig from '../../next-i18next.config';
 import { GetStaticPropsContext } from 'next';
 
 export const getI18nPaths = () =>
-  i18nConfig.locales.map((lng) => ({
+  nextI18nextConfig.i18n.locales.map((lng) => ({
     params: {
       locale: lng,
     },

@@ -38,3 +38,8 @@ export enum ShipmentStatus {
   CANCELLED = 'Cancelled',
 }
 
+// status is ShipmentStatus - Not just returning boolean, but telling TypeScript:
+// "If this function returns true, then status is of type ShipmentStatus"
+export function isShipmentStatus(status: string): status is ShipmentStatus {
+  return Object.values(ShipmentStatus).includes(status as ShipmentStatus);
+}

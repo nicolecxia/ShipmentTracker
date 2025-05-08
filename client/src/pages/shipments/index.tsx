@@ -18,6 +18,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nextConfig from "next-i18next.config";
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { setCarriers } from '@/redux/carriersSlice';
+import { GetStaticProps } from "next";
+import { Shipment } from '@/types/shipment';
 
 function ShipmentDashboard() {
   const router = useRouter();
@@ -28,7 +30,7 @@ function ShipmentDashboard() {
   const [filterModel, setFilterModel] = useState<GridFilterModel>({
     items: [],
   });
-  const [shipments, setShipments] = useState([]);
+  const [shipments, setShipments] = useState<Shipment[]>([]);
   const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [rowCount, setRowCount] = useState(0);
@@ -83,7 +85,7 @@ function ShipmentDashboard() {
       console.log('paginationModel:', paginationModel.page + 1);
       console.log('pageSize:', paginationModel.pageSize);
 
-    setShipments(data);
+    setShipments(data.shipments);
     setTotalCount(data.total || 0);
 
     console.log('Total Count:', data.total || 0);
@@ -157,14 +159,13 @@ function ShipmentDashboard() {
       </Box>
       
       <ShipmentDataGrid
-        shipments={shipments?.shipments || []}
-        imageUrl={shipments?.imageUrl || ''}
+        shipments={shipments || []}
         loading={loading}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         filterModel={filterModel}
         onFilterModelChange={setFilterModel}
-        rowCount={shipments?.total || 0}
+        rowCount={totalCount || 0}
         onStatusUpdate={async (trackingNumber, newStatus) => {
           await updateShipmentStatus(trackingNumber, newStatus);
           loadData();
@@ -175,12 +176,21 @@ function ShipmentDashboard() {
 }
 
 
-export async function getStaticProps({ locale }) {
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+//     },
+//   }
+// }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+      ...(await serverSideTranslations(locale ?? 'en', ['common'], nextI18nextConfig)),
+      // Add nullish coalescing for locale
     },
-  }
-}
+  };
+};
 
 export default ShipmentDashboard;

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel,GridActionsCellItem,GridRenderCellParams } from '@mui/x-data-grid';
-import { Shipment, ShipmentStatus } from '@/types/shipment';
+import { Shipment, ShipmentStatus,isShipmentStatus } from '@/types/shipment';
 import ShipmentFilters from "@/components/ShipmentFilters";
 import { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, MenuItem, Select, Box } from '@mui/material';
@@ -105,7 +105,7 @@ export default function ShipmentDataGrid({
 
      const handleRowDoubleClick = (params: { row: Shipment }) => {
     setSelectedShipment(params.row);
-    setNewStatus(params.row.status);
+    setNewStatus(params.row.status as ShipmentStatus);
      };
     
      const handleStatusUpdate = async () => {
@@ -168,8 +168,11 @@ export default function ShipmentDataGrid({
           {selectedShipment && (
             <Box sx={{ mt: 2 }}>
               <div><strong>{t.statusModal.trackingNumber}:</strong> {selectedShipment.trackingNumber}</div>
-              <div><strong>{t.statusModal.currentStatus}:</strong> <StatusBadge status={selectedShipment.status} /></div>
-              
+             
+              <div><strong>{t.statusModal.currentStatus}:</strong> 
+              <StatusBadge status={isShipmentStatus(selectedShipment.status) ? selectedShipment.status : ShipmentStatus.PENDING} />
+             </div>
+
               <Box sx={{ mt: 3 }}>
                 <Select
                   value={newStatus}
