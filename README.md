@@ -45,12 +45,19 @@ dotnet run
 ---
 
 ### 2.Frontend Setup  
+- Install the necessary packages <br>
 ```bash
 cd client
 npm install  # or yarn
 ```
-- Create .env file, setting up your server API URL. For example: <br>
-  `NEXT_PUBLIC_API_BASE_URL=http://localhost:5251/api`
+- Create `.env` file, setting up your server API URL,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,and NEXTAUTH_URL. For example: <br>
+```bash
+  NEXT_PUBLIC_API_BASE_URL=http://localhost:5251/api
+  GOOGLE_CLIENT_ID=...
+  GOOGLE_CLIENT_SECRET=...
+  NEXTAUTH_URL=http://localhost:3000
+  ```
+- Run <br>
 ```bash
 npm run dev
 ```
