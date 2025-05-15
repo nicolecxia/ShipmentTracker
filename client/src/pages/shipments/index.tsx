@@ -39,17 +39,12 @@ function ShipmentDashboard() {
   const dispatch = useAppDispatch();
 
 
-  const { data: session, status } = useSession({ 
+    const { data: session, status } = useSession({ 
     required: true,
     onUnauthenticated() {
       router.push(`${window.location.origin}/auth/signin`);
     } });
-    if (status === "loading") {
-      return <div>Loading...</div>; // Show loading state
-    }
-    if (!session) {
-      return null; // Brief render before redirect
-    }
+
 
      // Fetch Carriers data
     useEffect(() => {
@@ -109,6 +104,14 @@ function ShipmentDashboard() {
       return () => clearTimeout(timer);
     }, [filterModel, paginationModel]);
   
+
+    if (status === "loading") {
+      return <div>Loading...</div>; 
+    }
+    if (!session) {
+      return null; 
+    }
+
   return (
     <Box sx={{ p: 4 }}>
 
@@ -118,6 +121,7 @@ function ShipmentDashboard() {
         gap: 2,
         mb: 4
       }}>
+      {session && session.user &&
         <Box>
         <img 
           src={session.user?.image} 
@@ -133,7 +137,8 @@ function ShipmentDashboard() {
           </Typography>
           </Link>
         </Box>
-        
+      }
+
         <Button 
           variant="contained"
           onClick={() => signOut({ callbackUrl: '/auth/signin' })}
